@@ -1,12 +1,6 @@
 #%%
 import pandas as pd
 import missingno as msno
-#%%
-
-# df = pd.read_csv("airbnb-property-listings/tabular_data/listing.csv")
-# df_copy = df.copy()
-# df_copy = df_copy.replace(r'\r+|\\n+|\t+','', regex=True)
-
 
 def remove_rows_with_missing_ratings(df_copy):
     df_1 = df_copy.dropna(subset=['Cleanliness_rating', 'Accuracy_rating','Communication_rating', 'Location_rating','Check-in_rating', 'Value_rating'])
