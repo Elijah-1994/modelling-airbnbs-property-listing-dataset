@@ -1,5 +1,5 @@
 #%%
-import os.path
+import os.pat
 from PIL import Image
 import boto3 
 from time import sleep
