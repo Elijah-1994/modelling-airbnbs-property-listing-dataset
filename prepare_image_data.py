@@ -15,7 +15,11 @@ def downloadDirectoryFroms3(bucketName, remoteDirectoryName):
 def create_directory():
     processed_images_directory ='processed_images' 
     parent_directory = os.getcwd()
-    path = os.path.join(parent_directory, processed_images_directory) 
+    path = os.path.join(parent_directory, processed_images_directory)
+    try:
+        os.makedirs(path, exist_ok = True)
+    except OSError as error:
+        print('Error')
     return path
 
 def calculate_smallest_image_height(path):
