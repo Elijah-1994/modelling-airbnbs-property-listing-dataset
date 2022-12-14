@@ -1,8 +1,8 @@
 #%%
-import os.path
 from PIL import Image
-import boto3 
 from time import sleep
+import boto3 
+import os.path
 #%%
 def downloadDirectoryFroms3(bucketName, remoteDirectoryName):
     s3_resource = boto3.resource('s3')
