@@ -19,7 +19,7 @@ def create_directory():
     try:
         os.makedirs(path, exist_ok = True)
     except OSError as error:
-        print('Error')
+        print(f'{error} has occurred while creating directory.')
     return path
 
 def calculate_smallest_image_height(path):
