@@ -41,7 +41,7 @@ if __name__ == '__main__':
     new_df = clean_tabular_data()
     new_df.to_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv", index = False)
     features = load_airbnb(new_df)[0]
-    print(features)s
+    print(features)
 
 
 # %%
