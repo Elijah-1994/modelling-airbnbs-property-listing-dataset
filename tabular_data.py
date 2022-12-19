@@ -39,4 +39,4 @@ if __name__ == '__main__':
     df_copy = df.copy()
     df_copy = df_copy.replace(r'\r+|\\n+|\t+','', regex=True)
     new_df = clean_tabular_data()
-    new_df.to_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv", index = False
+    new_df.to_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv", index = False)
