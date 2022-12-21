@@ -1,30 +1,31 @@
 #%%
+from tabular_data import load_airbnb
+from sklearn.datasets import make_regression
+from sklearn.preprocessing import scale
 from sklearn.linear_model import SGDRegressor
 from sklearn.model_selection import train_test_split
-from tabular_data import load_airbnb
-import numpy as np
+#from sklearn.model_selection import cross_val_score
+import matplotlib.pyplot as plt
+from sklearn import metrics 
+#import numpy as np
 import pandas as pd
-import inspect
 #%%
 df = pd.read_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv")
-X, y = load_airbnb(df)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
+X,y = load_airbnb(df)
+X, y = make_regression(n_samples=829, n_features=9)
+X_train, X_test, y_train, y_test= train_test_split(X, y, test_size=0.3)
+X = scale(X)
+y = scale(y)
 #%%
-class SGDRegressor:
-    def __init__(self,n_features):
-        np.random.seed(2)
-        self.weights = np.random.randn(n_features, 1)
-        self.bias = np.random.randn(1)
-    
-    def predict(self, X):
-        y_prediction = X @ self.weights + self.bias
-        return y_prediction
-    
-    def get_params(deep=True):
-        return  dict(deep=deep)
-        
+def calculate_loss(y_test, y_pred):
+    mse = metrics.mean_squared_error(y_test, y_pred)
+    return mse
 
-model = SGDRegressor(n_features=9)
-y_pred = model.predict(X_train) 
-y_params = model.get_params
-print("Predictions:\n", y_pred[:20]) 
+if __name__ == '__main__':
+    model = SGDRegressor()
+    model = model.fit(X_train, y_train)
+    score = model.score(X_train, y_train)
+    print("R-squared:", score)
+    y_pred = model.predict(X_test)
+    print(y_pred[:5], "\n", y[:5])
+    calculate_loss(y_test, y_pred)
