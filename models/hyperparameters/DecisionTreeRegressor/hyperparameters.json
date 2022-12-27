@@ -1,1 +1,0 @@
-{"max_depth": 7, "max_features": "sqrt", "max_leaf_nodes": 90, "min_samples_leaf": 2, "min_weight_fraction_leaf": 0.1, "splitter": "random"}

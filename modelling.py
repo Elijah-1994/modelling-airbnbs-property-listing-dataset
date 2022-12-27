@@ -14,8 +14,27 @@ import numpy as np
 import pandas as pd
 import json
 #%%
+def evaluate_all_models(X_train,X_test,y_train,y_test):
+    models = [SGDRegressor(),DecisionTreeRegressor(),]
+    for model in models:
+        model_name = str(model)
+        best_parameters = tune_regression_model_hyperparameters(model,model_name,X_train, y_train)
+        model= model_name.replace(')', '')
+        model = f'{model}**{best_parameters}' +')'
+        model= eval(model)
+        model_test = model.fit(X_test, y_test)
+        model_train = model.fit(X_train, y_train)
+        y_pred_test = model_test.predict(X_test)
+        y_pred_train = model_train.predict(X_train)
+        RMSE_test = mean_squared_error(y_test, y_pred_test, squared=False)
+        RMSE_train = mean_squared_error(y_train, y_pred_train, squared=False)
+        R2_test = r2_score(y_test, y_pred_test)
+        R2_train = r2_score(y_train, y_pred_train)
+        performance_metrics = {'RMSE_test':RMSE_test,'RMSE_train':RMSE_train,'R2_test':R2_test,'R2_train':R2_train}
+        save_model(model,model_name,best_parameters,performance_metrics)
+        
 def tune_regression_model_hyperparameters(model,model_name,X_train, y_train):
-    if model_name == 'SGDRegressor':
+    if model_name == 'SGDRegressor()':
         params = {
         'alpha':[0.0001,0.0002,0.0003],
         'l1_ratio':[0.15,0.1,0.25], 
@@ -26,7 +45,7 @@ def tune_regression_model_hyperparameters(model,model_name,X_train, y_train):
         'power_t':[0.25,0.35,0.45],
                                     }
         clf = GridSearchCV(
-        estimator='SGDRegressor',
+        estimator=model,
         scoring='neg_mean_squared_error',
         param_grid=params,
         cv=5,
@@ -36,7 +55,7 @@ def tune_regression_model_hyperparameters(model,model_name,X_train, y_train):
         clf.fit(X_train, y_train)
         return clf.best_params_
     
-    elif model_name == 'DecisionTreeRegressor':
+    elif model_name == 'DecisionTreeRegressor()':
         params = {
             "splitter":["best","random"],
             "max_depth" : [1,3,5,7,9,11,12],
@@ -54,17 +73,18 @@ def tune_regression_model_hyperparameters(model,model_name,X_train, y_train):
         verbose=1
                     )
         clf.fit(X_train, y_train)
-        print(clf.best_params_)
+        clf.best_params_
         return clf.best_params_
 
+
 def save_model(model,model_name,best_parameters,performance_metrics):
-    if model_name == 'SGDRegressor':
-        joblib.dump(model, "models/regression/model.joblib")
-        with open("models/hyperparameters/hyperparameters.json", mode="w", encoding= "utf-8") as file:
+    if model_name == 'SGDRegressor()':
+        joblib.dump(model, "models/regression/SGDRegressor/model.joblib")
+        with open("models/hyperparameters/SGDRegressor/hyperparameters.json", mode="w", encoding= "utf-8") as file:
             file.write(json.dumps((best_parameters), default=str))   
-        with open("models/performance_metrics/performance_metrics.json", mode="w", encoding= "utf-8") as file:
+        with open("models/performance_metrics/SGDRegressor/performance_metrics.json", mode="w", encoding= "utf-8") as file:
             file.write(json.dumps((performance_metrics), default=str))  
-    elif model_name == 'DecisionTreeRegressor':
+    elif model_name == 'DecisionTreeRegressor()':
         joblib.dump(model, "models/regression/DecisionTreeRegressor/model.joblib")
         with open("models/hyperparameters/DecisionTreeRegressor/hyperparameters.json", mode="w", encoding= "utf-8") as file:
             file.write(json.dumps((best_parameters), default=str))   
@@ -80,34 +100,8 @@ if __name__ == '__main__':
     X = rng.randn(n_samples, n_features)
     y = rng.randn(n_samples)
     X_train, X_test,y_train, y_test= train_test_split(X, y, test_size=0.3)
-    # model = SGDRegressor()
-    # best_parameters = tune_regression_model_hyperparameters(model,X_train, y_train)
-    #updated_model = SGDRegressor(**best_parameters)
-    #model = updated_model.fit(X_train, y_train)
-    # y_pred_test = model.predict(X_test)
-    # y_pred_train = model.predict(X_train)
-    # RMSE_test = mean_squared_error(y_test, y_pred_test, squared=False)
-    # RMSE_train = mean_squared_error(y_train, y_pred_train, squared=False)
-    # R2_test = r2_score(y_test, y_pred_test)
-    # R2_train = r2_score(y_train, y_pred_train)
-    # performance_metrics = {'RMSE_test':RMSE_test,'RMSE_train':RMSE_train,'R2_test':R2_test,'R2_train':R2_train}
-    # save_model(updated_model,best_parameters,performance_metrics)
-    model = DecisionTreeRegressor()
-    best_parameters = tune_regression_model_hyperparameters(model,'DecisionTreeRegressor',X_train, y_train)
-    updated_model = DecisionTreeRegressor(**best_parameters,random_state=0)
-    model = updated_model.fit(X_test,y_test)
-    y_pred_test = model.predict(X_test)
-    y_pred_train = model.predict(X_train)
-    RMSE_test = mean_squared_error(y_test, y_pred_test, squared=False)
-    RMSE_train = mean_squared_error(y_train, y_pred_train, squared=False)
-    R2_test = r2_score(y_test, y_pred_test)
-    R2_train = r2_score(y_train, y_pred_train)
-    performance_metrics = {'RMSE_test':RMSE_test,'RMSE_train':RMSE_train,'R2_test':R2_test,'R2_train':R2_train}
-    score = model.score(X_test,y_test)
-    save_model(updated_model,'DecisionTreeRegressor',best_parameters,performance_metrics)
-    print(score)
-    cross_val_score(model, X, y, cv=10)
-    y_pred_train = model.predict(X_train)
+    evaluate_all_models(X_test,X_train,y_test, y_train)
+   
 
 
 
