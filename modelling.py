@@ -66,9 +66,9 @@ def save_model(model,model_name,best_parameters,performance_metrics):
             file.write(json.dumps((performance_metrics), default=str))  
     elif model_name == 'DecisionTreeRegressor':
         joblib.dump(model, "models/regression/DecisionTreeRegressor/model.joblib")
-        with open("models/hyperparameters/DecisionTree/hyperparameters.json", mode="w", encoding= "utf-8") as file:
+        with open("models/hyperparameters/DecisionTreeRegressor/hyperparameters.json", mode="w", encoding= "utf-8") as file:
             file.write(json.dumps((best_parameters), default=str))   
-        with open("models/performance_metrics/DecisionTree/performance_metrics.json", mode="w", encoding= "utf-8") as file:
+        with open("models/performance_metrics/DecisionTreeRegressor/performance_metrics.json", mode="w", encoding= "utf-8") as file:
             file.write(json.dumps((performance_metrics), default=str))  
 
 if __name__ == '__main__':
