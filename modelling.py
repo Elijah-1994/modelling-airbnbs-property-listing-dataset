@@ -15,7 +15,7 @@ import pandas as pd
 import json
 #%%
 def evaluate_all_models(X_train,X_test,y_train,y_test):
-    models = [SGDRegressor(),DecisionTreeRegressor(),RandomForestRegressor(),GradientBoostingRegressor()]
+    models = [RandomForestRegressor(),GradientBoostingRegressor()]
     for model in models:
         model_name = str(model)
         best_parameters = tune_regression_model_hyperparameters(model,model_name,X_train, y_train)
