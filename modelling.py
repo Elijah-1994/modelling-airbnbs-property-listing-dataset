@@ -1,5 +1,5 @@
 #%%
-from tabular_data import load_airbn
+from tabular_data import load_airbnb
 from sklearn.model_selection import cross_val_score
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import GridSearchCV
