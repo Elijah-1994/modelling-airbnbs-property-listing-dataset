@@ -34,6 +34,12 @@ def load_airbnb(new_df):
     labels = new_df['Price_Night']
     return features, labels
 
+def load_airbnb_2(new_df):
+    features = new_df.select_dtypes(include='float64')
+    features = features.drop('Unnamed: 19' , axis=1)
+    labels = new_df['Price_Night']
+    return features, labels
+
 if __name__ == '__main__':
     df = pd.read_csv("airbnb-property-listings/tabular_data/listing.csv")
     df_copy = df.copy()
