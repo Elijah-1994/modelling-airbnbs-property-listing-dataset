@@ -50,6 +50,7 @@ def evaluate_all_models():
         "min_weight_fraction_leaf":[0.1,0.2,0.3,0.4],
         "max_features":[1.0,"log2","sqrt",None],
         "max_leaf_nodes":[None,10,20,30,40,50,60,70,80,90]
+        ""
                                     })
     save_model(model,best_parameters,performance_metrics,folder='models/regression/decision_tree/')
     
