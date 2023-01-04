@@ -1,6 +1,6 @@
 #%%
 import pandas as pd
-import
+
 def remove_rows_with_missing_ratings(df_copy):
     df_1 = df_copy.dropna(subset=['Cleanliness_rating', 'Accuracy_rating','Communication_rating', 'Location_rating','Check-in_rating', 'Value_rating'])
     return df_1
