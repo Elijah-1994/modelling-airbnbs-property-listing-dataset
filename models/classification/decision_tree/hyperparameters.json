@@ -1,0 +1,1 @@
+{"ccp_alpha": 0, "max_depth": 12, "max_features": "log2", "max_leaf_nodes": null, "min_samples_leaf": 3, "min_weight_fraction_leaf": 0.2, "splitter": "best"}

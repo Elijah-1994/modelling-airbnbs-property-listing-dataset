@@ -1,1 +1,1 @@
-{"alpha": 0.0001, "epsilon": 0.9, "eta0": 0.09, "l1_ratio": 0.25, "learning_rate": "invscaling", "max_iter": 1750, "penalty": "l2", "power_t": 0.25, "tol": 0.001}
+{"alpha": 0.0003, "epsilon": 0.2, "eta0": 0.03, "l1_ratio": 0.15, "learning_rate": "optimal", "max_iter": 1000, "penalty": "l1", "power_t": 0.35, "tol": 0.02}
