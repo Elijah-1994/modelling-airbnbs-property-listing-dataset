@@ -29,10 +29,10 @@ def clean_tabular_data():
     return df_3
 
 def load_airbnb(new_df):
-    features = new_df.select_dtypes(include=['float64','Int64'])
+    features = new_df.select_dtypes(include=['float64'])
     features = features.drop('Unnamed: 19' , axis=1)
-    #labels = new_df['Price_Night']
-    labels = new_df['Category']
+    labels = new_df['Price_Night']
+    #labels = new_df['Category']
     return features, labels
 
 if __name__ == '__main__':
