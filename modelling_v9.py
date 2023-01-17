@@ -248,9 +248,9 @@ class AirbnbNightlyPriceImageDataset(Dataset):
 class NeuralNetwork(nn.Module):
     def __init__(self,config,):
         super().__init__()
-        self.in_feature = 5
+        self.in_feature = 16
         self.out_feature = config[0]['hidden_layer_width']
-        self.linear_input_layer = torch.nn.Linear(9,5)
+        self.linear_input_layer = torch.nn.Linear(9,16)
         self.linear_output_layer = torch.nn.Linear(5,1)
         self.ordered_dict = OrderedDict({'linear_input_layer':self.linear_input_layer,'ReLU':torch.nn.ReLU()})
         self.depth = config[0]['depth']
@@ -311,12 +311,11 @@ def train(model,config,epochs=10,):
             RMSE_Loss_Train = torch.sqrt(mse)
             mse.backward()
             optimiser.step()
-            print('RMSE_Loss_Train', RMSE_Loss_Train)
-            print('RMSE_Loss_Train', RMSE_Loss_Train.item())
             RMSE_Train.append(RMSE_Loss_Train.item())
             r2score = R2Score()
             r2score = r2score(prediction,labels) 
             R2_Train.append(r2score.item())
+            
         for batch in dataloader["validation"]:
             features,labels = batch
             features = features.to(torch.float32)
@@ -335,7 +334,6 @@ def train(model,config,epochs=10,):
             
     model = model.state_dict()
     best_parameters  = config
-    print('RMSE_Train',RMSE_Train)
     RMSE_Loss_Train = RMSE_Train[-1]
     #print('RMSE_LOSS_Train',RMSE_Loss_Train)
     R2_Score_Train = R2_Train[-1]

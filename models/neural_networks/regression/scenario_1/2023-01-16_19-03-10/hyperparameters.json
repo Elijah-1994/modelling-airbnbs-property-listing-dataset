@@ -1,0 +1,1 @@
+{"Optimizer": "ADAM", "lr": 0.001, "eps": 1e-08, "weight_decay": 0, "amsgrad": false, "foreach": false, "maximize": false, "fused": false}
