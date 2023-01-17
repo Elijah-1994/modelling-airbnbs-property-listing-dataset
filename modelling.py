@@ -183,55 +183,123 @@ def save_model(model,best_parameters,performance_metrics,folder,module):
         with open(performance_metrics_path, mode="w", encoding= "utf-8") as file:
             file.write(json.dumps((performance_metrics), default=str))  
 
-def find_best_model(task_folder):
-    parent_directory =  task_folder
-    linear_regression_path = 'linear_regression/performance_metrics.json'
-    linear_regression_path = os.path.join(parent_directory,linear_regression_path)
-    decision_tree_path = 'decision_tree/performance_metrics.json'
-    decision_tree_path = os.path.join(parent_directory,decision_tree_path)
-    random_forest_path = 'random_forest/performance_metrics.json'
-    random_forest_path = os.path.join(parent_directory,random_forest_path)
-    gradient_boosting_path = 'gradient_boosting/performance_metrics.json'
-    gradient_boosting_path = os.path.join(parent_directory,gradient_boosting_path)
-    regression_performance_metrics_list = [linear_regression_path,decision_tree_path,random_forest_path,gradient_boosting_path]
-    best_model = 0
-    for path in regression_performance_metrics_list:
-        with open(path,mode='r') as f:
-            hyperparameters = json.load(f)
-            if hyperparameters < best_model or best_model == 0:
-                best_model = hyperparameters
+def find_best_model(task_folder, module):
+    if module == 'Pytorch':
+        parent_directory =  task_folder
+        model_1_ADELTA_path = '2023-01-17_10-30-07/performance_metrics.json' 
+        model_1_ADELTA_path = os.path.join(parent_directory,model_1_ADELTA_path)
+        model_2_ADELTA_path = '2023-01-17_10-37-20/performance_metrics.json' 
+        model_2_ADELTA_path = os.path.join(parent_directory,model_2_ADELTA_path)
+        model_3_ADELTA_path = '2023-01-17_10-44-31/performance_metrics.json' 
+        model_3_ADELTA_path = os.path.join(parent_directory,model_3_ADELTA_path)
+        model_4_ADELTA_path = '2023-01-17_10-51-41/performance_metrics.json' 
+        model_4_ADELTA_path = os.path.join(parent_directory,model_4_ADELTA_path)
+        model_5_SGD_path = '2023-01-17_10-58-51/performance_metrics.json' 
+        model_5_SGD_path = os.path.join(parent_directory,model_5_SGD_path)
+        model_6_SGD_path = '2023-01-17_11-06-07/performance_metrics.json' 
+        model_6_SGD_path = os.path.join(parent_directory,model_6_SGD_path)
+        model_7_SGD_path = '2023-01-17_11-13-22/performance_metrics.json' 
+        model_7_SGD_path = os.path.join(parent_directory,model_7_SGD_path)
+        model_8_SGD_path = '2023-01-17_11-20-34/performance_metrics.json' 
+        model_8_SGD_path = os.path.join(parent_directory,model_8_SGD_path)
+        model_9_ADAM_path = '2023-01-17_11-27-46/performance_metrics.json' 
+        model_9_ADAM_path = os.path.join(parent_directory,model_9_ADAM_path)
+        model_10_ADAM_path = '2023-01-17_11-27-46/performance_metrics.json' 
+        model_10_ADAM_path = os.path.join(parent_directory,model_10_ADAM_path)
+        model_11_ADAM_path = '2023-01-17_11-27-46/performance_metrics.json' 
+        model_11_ADAM_path = os.path.join(parent_directory,model_11_ADAM_path)
+        model_12_ADAM_path = '2023-01-17_11-27-46/performance_metrics.json' 
+        model_12_ADAM_path = os.path.join(parent_directory,model_12_ADAM_path)
+        model_13_ADAGRAD_path = '2023-01-17_11-58-53/performance_metrics.json' 
+        model_13_ADAGRAD_path = os.path.join(parent_directory,model_13_ADAGRAD_path)
+        model_14_ADAGRAD_path = '2023-01-17_12-06-04/performance_metrics.json' 
+        model_14_ADAGRAD_path = os.path.join(parent_directory,model_14_ADAGRAD_path)
+        model_15_ADAGRAD_path = '2023-01-17_12-13-46/performance_metrics.json' 
+        model_15_ADAGRAD_path = os.path.join(parent_directory,model_15_ADAGRAD_path)
+        model_16_ADAGRAD_path = '2023-01-17_12-21-43/performance_metrics.json' 
+        model_16_ADAGRAD_path = os.path.join(parent_directory,model_16_ADAGRAD_path)
+        
+        models_RMSE = []
+        best_model = 0
+        regression_performance_paths = [model_1_ADELTA_path, model_2_ADELTA_path, model_3_ADELTA_path, model_4_ADELTA_path,
+                                               model_5_SGD_path,model_6_SGD_path,model_7_SGD_path,model_8_SGD_path,model_9_ADAM_path,
+                                               model_10_ADAM_path,model_11_ADAM_path,model_13_ADAGRAD_path,model_14_ADAGRAD_path,
+                                               model_15_ADAGRAD_path,model_16_ADAGRAD_path
+                                               ]
+             
+        for path in regression_performance_paths:
+            with open(path,mode='r') as f:
+                performance_metrics = json.load(f)
+                models_RMSE.append(performance_metrics["RMSE_Loss_Validation"])
+        
+        for RMSE in models_RMSE:
+            if RMSE < best_model or best_model == 0:
+                best_model = RMSE
+        print('model_8_SGD has the lowest RMSE.')
+        
+        best_model_path = '2023-01-17_11-20-34/model.pt' 
+        best_model_path = os.path.join(parent_directory,best_model_path) 
+        best_model = torch.load(best_model_path)
+        best_model_hyperparameters = '2023-01-17_11-20-34/hyperparameters.json' 
+        best_model_hyperparameters = os.path.join(parent_directory,best_model_hyperparameters)
+        with open(gradient_boosting_path, mode='r') as f:
+            best_performance_metrics= json.load(f)
+        with open(best_model_hyperparameters, mode='r') as f:
+            best_model_hyperparameters= json.load(f)    
+        return(best_model,best_performance_metrics,best_model_hyperparameters)
 
-    print(f'{regression_performance_metrics_list[3][18:35]}' " " 'model has the lowest RMSE.')  
-    best_model_path = 'gradient_boosting/models.joblib' 
-    best_model_path = os.path.join(parent_directory,best_model_path)
-    best_model = joblib.load(best_model_path, mmap_mode=None)
-    best_model_hyperparameters = 'gradient_boosting/hyperparameters.json' 
-    best_model_hyperparameters = os.path.join(parent_directory,best_model_hyperparameters)
-    with open(gradient_boosting_path, mode='r') as f:
-        best_performance_metrics= json.load(f)
-    with open(best_model_hyperparameters, mode='r') as f:
-        best_model_hyperparameters= json.load(f)    
-    return(best_model,best_performance_metrics,best_model_hyperparameters)
+       
     
-    classification_performance_metrics_list = [logistic_regression_path,decision_tree_path,random_forest_path,gradient_boosting_path]
-    best_model = 0
-    for path in classification_performance_metrics_list:
-        with open(path,mode='r') as f:
-            hyperparameters = json.load(f)
-            if hyperparameters > best_model:
-                best_model = hyperparameters
+    elif module == 'SKlearn':
+        parent_directory =  task_folder
+        linear_regression_path = 'linear_regression/performance_metrics.json'
+        linear_regression_path = os.path.join(parent_directory,linear_regression_path)
+        decision_tree_path = 'decision_tree/performance_metrics.json'
+        decision_tree_path = os.path.join(parent_directory,decision_tree_path)
+        random_forest_path = 'random_forest/performance_metrics.json'
+        random_forest_path = os.path.join(parent_directory,random_forest_path)
+        gradient_boosting_path = 'gradient_boosting/performance_metrics.json'
+        gradient_boosting_path = os.path.join(parent_directory,gradient_boosting_path)
+        regression_performance_metrics_list = [linear_regression_path,decision_tree_path,random_forest_path,gradient_boosting_path]
+        best_model = 0
+        for path in regression_performance_metrics_list:
+            with open(path,mode='r') as f:
+                performance_metric = json.load(f)
+            if performance_metric < best_model or best_model == 0:
+                best_model = performance_metric
+                print('best_model',best_model)
 
-    print(f'{classification_performance_metrics_list[2][22:35]}' " " 'model has the highest precision.')  
-    best_model_path = 'random_forest/models.joblib' 
-    best_model_path = os.path.join(parent_directory,best_model_path)
-    best_model = joblib.load(best_model_path, mmap_mode=None)
-    best_model_hyperparameters = 'random_forest/hyperparameters.json' 
-    best_model_hyperparameters = os.path.join(parent_directory,best_model_hyperparameters)
-    with open(random_forest_path, mode='r') as f:
-        best_performance_metrics= json.load(f)
-    with open(best_model_hyperparameters, mode='r') as f:
-        best_model_hyperparameters= json.load(f)    
-    return(best_model,best_performance_metrics,best_model_hyperparameters)
+        print(f'{regression_performance_metrics_list[3][18:35]}' " " 'model has the lowest RMSE.')  
+        best_model_path = 'gradient_boosting/models.joblib' 
+        best_model_path = os.path.join(parent_directory,best_model_path)
+        best_model = joblib.load(best_model_path, mmap_mode=None) 
+        best_model_hyperparameters = 'gradient_boosting/hyperparameters.json' 
+        best_model_hyperparameters = os.path.join(parent_directory,best_model_hyperparameters)
+        with open(gradient_boosting_path, mode='r') as f:
+            best_performance_metrics= json.load(f)
+        with open(best_model_hyperparameters, mode='r') as f:
+            best_model_hyperparameters= json.load(f)    
+        return(best_model,best_performance_metrics,best_model_hyperparameters)
+    
+        classification_performance_metrics_list = [logistic_regression_path,decision_tree_path,random_forest_path,gradient_boosting_path]
+        best_model = 0
+        for path in classification_performance_metrics_list:
+            with open(path,mode='r') as f:
+                performance_metric = json.load(f)
+                if performance_metric > best_model:
+                    best_model = performance_metric
+
+        print(f'{classification_performance_metrics_list[2][22:35]}' " " 'model has the highest precision.')  
+        best_model_path = 'random_forest/models.joblib' 
+        best_model_path = os.path.join(parent_directory,best_model_path)
+        best_model = joblib.load(best_model_path, mmap_mode=None)
+        best_model_hyperparameters = 'random_forest/hyperparameters.json' 
+        best_model_hyperparameters = os.path.join(parent_directory,best_model_hyperparameters)
+        with open(random_forest_path, mode='r') as f:
+            best_performance_metrics= json.load(f)
+        with open(best_model_hyperparameters, mode='r') as f:
+            best_model_hyperparameters= json.load(f)    
+        return(best_model,best_performance_metrics,best_model_hyperparameters)
 ## nn
 class AirbnbNightlyPriceDataset(Dataset):
     def __init__(self):
@@ -355,21 +423,22 @@ def find_best_nn():
         train(model,config=configuration)
 
 if __name__ == '__main__':
-    df = pd.read_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv")
-    X,y = load_airbnb(df)
-    #regression model
-    n_samples, n_features = 830, 9
-    rng = np.random.RandomState(0)
-    X = rng.randn(n_samples, n_features)
-    y = rng.randn(n_samples)
-    X_train, X_test,y_train, y_test= train_test_split(X, y, test_size=0.3)
+    # df = pd.read_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv")
+    # X,y = load_airbnb(df)
+    # #regression model
+    # n_samples, n_features = 830, 9
+    # rng = np.random.RandomState(0)
+    # X = rng.randn(n_samples, n_features)
+    # y = rng.randn(n_samples)
+    # X_train, X_test,y_train, y_test= train_test_split(X, y, test_size=0.3)
     # #classification model
     # y = y.to_frame().reset_index(drop=True)
     # label_encoder = LabelEncoder()
     # y = label_encoder.fit_transform(y)
     # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    evaluate_all_models()
-    # best_model = find_best_model (task_folder='models/classification/')
+    #evaluate_all_models()
+    best_model = find_best_model (task_folder='models/neural_networks/regression/scenario_2/', module = 'Pytorch')
+    print(best_model)
     #neural network model
     # dataset= AirbnbNightlyPriceDataset()
     # train_dataset, test_dataset, validation_dataset = torch.utils.data.random_split(dataset,[500, 165,165]) 
