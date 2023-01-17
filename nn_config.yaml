@@ -10,28 +10,42 @@
 #   rho: 0.45
 #   eps: 0.000002
 #   weight_decay: 0.5
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'ADADELTA'
 #   lr: 1.5
 #   rho: 0.75
 #   eps: 0.000003
 #   weight_decay: 1
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'ADADELTA'
 #   lr: 0.25
 #   rho: 0.25
 #   eps: 0.000004
 #   weight_decay: 1.5
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'SGD'
 #   lr: 0.001
 #   momentum: 0.9
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'SGD'
 #   lr: 0.002
 #   momentum: 0.5
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'SGD'
 #   lr: 0.003
 #   momentum: 0.1
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'SGD'
 #   lr: 0.005
 #   momentum: 1.0
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'ADAM'
 #   lr: 0.001
 #   eps: 0.00000001
@@ -40,6 +54,8 @@
 #   foreach: False
 #   maximize: False
 #   fused: False
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'ADAM'
 #   lr: 0.0005
 #   eps: 0.00000002
@@ -48,6 +64,8 @@
 #   foreach: True
 #   maximize: True
 #   fused: False
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'ADAM'
 #   lr: 0.0025
 #   eps: 0.000000025
@@ -56,6 +74,8 @@
 #   foreach: True
 #   maximize: False
 #   fused: False
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'ADAM'
 #   lr: 0.005
 #   eps: 0.0000005
@@ -64,6 +84,8 @@
 #   foreach: False
 #   maximize: True
 #   fused: False
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'ADAGRAD'
 #   lr: 0.01
 #   lr_decay: 0
@@ -71,6 +93,8 @@
 #   weight_decay: 0
 #   foreach: False
 #   maximize: False
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'ADAGRAD'
 #   lr: 0.005
 #   lr_decay: 0.5
@@ -87,6 +111,8 @@
 #   weight_decay: 1
 #   foreach: True
 #   maximize: False
+#   hidden_layer_width: 5
+#   depth: 20
 # - Optimizer: 'ADAGRAD'
 #   lr: 0.1
 #   lr_decay: 1
@@ -94,6 +120,8 @@
 #   weight_decay: 1
 #   foreach: False
 #   maximize: True
+#   hidden_layer_width: 5
+#   depth: 20
 
 
 
