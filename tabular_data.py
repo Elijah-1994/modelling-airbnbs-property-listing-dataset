@@ -29,10 +29,10 @@ def clean_tabular_data():
     return df_3
 
 def load_airbnb(new_df):
-    features = new_df.select_dtypes(include=['float64'])
+    features = new_df.select_dtypes(include=['float64', 'Int64',])
     features = features.drop('Unnamed: 19' , axis=1)
-    labels = new_df['Price_Night']
-    #labels = new_df['Category']
+    features = features.drop('beds', axis=1)
+    labels = new_df['beds']
     return features, labels
 
 if __name__ == '__main__':
@@ -41,4 +41,5 @@ if __name__ == '__main__':
     df_copy = df_copy.replace(r'\r+|\\n+|\t+','', regex=True)
     new_df = clean_tabular_data()
     new_df.to_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv", index = False)
+    load_airbnb(new_df)
     

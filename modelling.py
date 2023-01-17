@@ -44,7 +44,7 @@ def evaluate_all_models():
         'eta0':[0.01,0.02,0.03,0.05,0.09],
         'power_t':[0.25,0.35,0.45],
                                     })
-    save_model(model,best_parameters,performance_metrics,folder='models/regression/linear_regression/')
+    save_model(model,best_parameters,performance_metrics,folder='models/regression/linear_regression/', module = 'SKlearn')
     
     model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(DecisionTreeRegressor(),X,y,X_test,y_test,{
         "criterion":['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
@@ -56,7 +56,7 @@ def evaluate_all_models():
         "max_features":[1.0,"log2","sqrt",None],
         "max_leaf_nodes":[None,10,20,30,40,50,60,70,80,90],
                                     })
-    save_model(model,best_parameters,performance_metrics,folder='models/regression/decision_tree/')
+    save_model(model,best_parameters,performance_metrics,folder='models/regression/decision_tree/', module = 'SKlearn')
     
     model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(RandomForestRegressor(),X,y,X_test,y_test,{
         "min_samples_split": [0,1,2,3],
@@ -68,7 +68,7 @@ def evaluate_all_models():
         "bootstrap" : [True, False],
         
                                     })
-    save_model(model,best_parameters,performance_metrics,folder='models/regression/random_forest/')
+    save_model(model,best_parameters,performance_metrics,folder='models/regression/random_forest/', module = 'SKlearn')
     
     model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(GradientBoostingRegressor(),X,y,X_test,y_test,{
          "max_depth" : [1,3,5,7,9,11,12],
@@ -77,51 +77,51 @@ def evaluate_all_models():
          "max_features":[1.0,"log2","sqrt",None],
          "max_leaf_nodes":[None,10,20,30,40,50,60,70,80,90] 
                                     })
-    save_model(model,best_parameters,performance_metrics,folder='models/regression/gradient_boosting/')
+    save_model(model,best_parameters,performance_metrics,folder='models/regression/gradient_boosting/', module = 'SKlearn')
     
-    model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(LogisticRegression(),X,y,X_test,y_test,{
-           'penalty':['l2','none'],
-           'tol':[0.0001,0.0002,0.0003],
-           'C':[0.1,0.5,1.0,1.5],
-           'solver':['lbfgs', 'liblinear', 'newton-cg', 'sag', 'saga'],
-           'max_iter':[50,75,100,125,150,175,200],
+    # model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(LogisticRegression(),X,y,X_test,y_test,{
+    #        'penalty':['l2','none'],
+    #        'tol':[0.0001,0.0002,0.0003],
+    #        'C':[0.1,0.5,1.0,1.5],
+    #        'solver':['lbfgs', 'liblinear', 'newton-cg', 'sag', 'saga'],
+    #        'max_iter':[50,75,100,125,150,175,200],
     
-                                    })
-    save_model(model,best_parameters,performance_metrics,folder='models/classification/logistic_regression/')
+    #                                 })
+    # save_model(model,best_parameters,performance_metrics,folder='models/classification/logistic_regression/')
     
-    model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(DecisionTreeClassifier(),X,y,X_test,y_test,{
-            "splitter":["best","random"],
-            "max_depth" : [1,3,5,7,9,11,12],
-            "min_samples_leaf":[1,2,3,4,5,6,7,8,9,10],
-            "min_weight_fraction_leaf":[0.1,0.2,0.3,0.4],
-            "max_features":[1.0,"log2","sqrt",None],
-            "max_leaf_nodes":[None,10,20,30,40,50,60,70,80,90], 
-            "ccp_alpha":[0,1,2,3,4]
+    # model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(DecisionTreeClassifier(),X,y,X_test,y_test,{
+    #         "splitter":["best","random"],
+    #         "max_depth" : [1,3,5,7,9,11,12],
+    #         "min_samples_leaf":[1,2,3,4,5,6,7,8,9,10],
+    #         "min_weight_fraction_leaf":[0.1,0.2,0.3,0.4],
+    #         "max_features":[1.0,"log2","sqrt",None],
+    #         "max_leaf_nodes":[None,10,20,30,40,50,60,70,80,90], 
+    #         "ccp_alpha":[0,1,2,3,4]
     
-                                    })
-    save_model(model,best_parameters,performance_metrics,folder='models/classification/decision_tree/')
+    #                                 })
+    # save_model(model,best_parameters,performance_metrics,folder='models/classification/decision_tree/', module = 'SKlearn')
     
-    model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(RandomForestClassifier(),X,y,X_test,y_test,{
-            "max_depth" : [1,3,5,7,9,11,12],
-            "min_samples_leaf":[1,2,3,4,5,6,7,8,9,10],
-            "min_weight_fraction_leaf":[0.1,0.2,0.3,0.4],
-            "max_features":[1.0,"log2","sqrt",None],
-            "max_leaf_nodes":[None,10,20,30,40,50,60,70,80,90], 
-            "ccp_alpha":[0,1,2,3,4]
+    # model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(RandomForestClassifier(),X,y,X_test,y_test,{
+    #         "max_depth" : [1,3,5,7,9,11,12],
+    #         "min_samples_leaf":[1,2,3,4,5,6,7,8,9,10],
+    #         "min_weight_fraction_leaf":[0.1,0.2,0.3,0.4],
+    #         "max_features":[1.0,"log2","sqrt",None],
+    #         "max_leaf_nodes":[None,10,20,30,40,50,60,70,80,90], 
+    #         "ccp_alpha":[0,1,2,3,4]
     
-                                    })
-    save_model(model,best_parameters,performance_metrics,folder='models/classification/random_forest/')
+    #                                 })
+    # save_model(model,best_parameters,performance_metrics,folder='models/classification/random_forest/')
     
-    model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(GradientBoostingClassifier(),X,y,X_test,y_test,{
-            "learning_rate" : [0.1,1.0,3.0,6.0,9.0,12.0],
-            "n_estimators" : [5,20,50,100],
-            "subsample": [0.1,0.2,0.3,0.4,0.5,0.5,0.6,0.7,0.8,0.9,1.0],
-            "min_weight_fraction_leaf":[0.1,0.2,0.3,0.4],
-            "max_depth" : [1,3,5,7,9,11,12],         
-            "tol":[0.0001,0.0002,0.0003]
+    # model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(GradientBoostingClassifier(),X,y,X_test,y_test,{
+    #         "learning_rate" : [0.1,1.0,3.0,6.0,9.0,12.0],
+    #         "n_estimators" : [5,20,50,100],
+    #         "subsample": [0.1,0.2,0.3,0.4,0.5,0.5,0.6,0.7,0.8,0.9,1.0],
+    #         "min_weight_fraction_leaf":[0.1,0.2,0.3,0.4],
+    #         "max_depth" : [1,3,5,7,9,11,12],         
+    #         "tol":[0.0001,0.0002,0.0003]
     
-                                    })
-    save_model(model,best_parameters,performance_metrics,folder='models/classification/gradient_boosting/')
+    #                                 })
+    # save_model(model,best_parameters,performance_metrics,folder='models/classification/gradient_boosting/')
     
 def tune_regression_model_hyperparameters(model,X,y,X_test,y_test,*parameters):
     clf = GridSearchCV(
@@ -133,6 +133,7 @@ def tune_regression_model_hyperparameters(model,X,y,X_test,y_test,*parameters):
                     )
     clf.fit(X,y)
     predictions = clf.predict(X_test)
+    print('prediction', predictions)
     performance_metrics = mean_squared_error(y_test, predictions, squared=False)
     return (clf,clf.best_params_,performance_metrics)
     
@@ -168,7 +169,7 @@ def save_model(model,best_parameters,performance_metrics,folder,module):
         with open(performance_metrics_path, mode="w", encoding= "utf-8") as file:
             file.write(json.dumps((performance_metrics), default=str))  
     
-    elif module == 'sklearn':
+    elif module == 'SKlearn':
         parent_directory = folder
         model_path = 'models.joblib'
         model_path = os.path.join(parent_directory,model_path)
@@ -232,7 +233,7 @@ def find_best_model(task_folder):
         best_model_hyperparameters= json.load(f)    
     return(best_model,best_performance_metrics,best_model_hyperparameters)
 ## nn
-class AirbnbNightlyPriceImageDataset(Dataset):
+class AirbnbNightlyPriceDataset(Dataset):
     def __init__(self):
         super().__init__()
         self.X,self.y = load_airbnb(df)
@@ -303,7 +304,6 @@ def train(model,config,epochs=10,):
             optimiser.zero_grad()
             current_time = time.process_time()
             prediction=model(features)
-            print('prediction',prediction)
             end_time = time.process_time()
             time_elapsed = (end_time - current_time) * 10**3
             average_time.append(time_elapsed)
@@ -311,8 +311,6 @@ def train(model,config,epochs=10,):
             RMSE_Loss_Train = torch.sqrt(mse)
             mse.backward()
             optimiser.step()
-            print('RMSE_Loss_Train', RMSE_Loss_Train)
-            print('RMSE_Loss_Train', RMSE_Loss_Train.item())
             RMSE_Train.append(RMSE_Loss_Train.item())
             r2score = R2Score()
             r2score = r2score(prediction,labels) 
@@ -335,9 +333,7 @@ def train(model,config,epochs=10,):
             
     model = model.state_dict()
     best_parameters  = config
-    print('RMSE_Train',RMSE_Train)
     RMSE_Loss_Train = RMSE_Train[-1]
-    #print('RMSE_LOSS_Train',RMSE_Loss_Train)
     R2_Score_Train = R2_Train[-1]
     RMSE_Loss_Validation = RMSE_Validation[-1]
     R2_Score_Validation = R2_Validation[-1]
@@ -346,7 +342,7 @@ def train(model,config,epochs=10,):
     performance_metrics ={'RMSE_Loss_Train':RMSE_Loss_Train,'R2_Score_Train':R2_Score_Train,'RMSE_Loss_Validation':RMSE_Loss_Validation,
                           'R2_Score_Train':R2_Score_Validation, 'training_duration_(H,M,S)':training_duration,'inference_latency_(ms)':inference_latency,
                            }
-    save_model(model,best_parameters,performance_metrics,folder='models/neural_networks/regression/scenario_1/', module = 'PyTorch')
+    save_model(model,best_parameters,performance_metrics,folder='models/neural_networks/regression/scenario_2/', module = 'PyTorch')
     
 def get_nn_config(yaml_file):
     with open(yaml_file, 'r') as f:
@@ -360,42 +356,42 @@ def find_best_nn():
 
 if __name__ == '__main__':
     df = pd.read_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv")
-    # X,y = load_airbnb(df)
-    # #regression model
-    # n_samples, n_features = 830, 9
-    # rng = np.random.RandomState(0)
-    # X = rng.randn(n_samples, n_features)
-    # y = rng.randn(n_samples)
-    # X_train, X_test,y_train, y_test= train_test_split(X, y, test_size=0.3)
+    X,y = load_airbnb(df)
+    #regression model
+    n_samples, n_features = 830, 9
+    rng = np.random.RandomState(0)
+    X = rng.randn(n_samples, n_features)
+    y = rng.randn(n_samples)
+    X_train, X_test,y_train, y_test= train_test_split(X, y, test_size=0.3)
     # #classification model
     # y = y.to_frame().reset_index(drop=True)
     # label_encoder = LabelEncoder()
     # y = label_encoder.fit_transform(y)
     # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    # evaluate_all_models()
+    evaluate_all_models()
     # best_model = find_best_model (task_folder='models/classification/')
     #neural network model
-    dataset= AirbnbNightlyPriceImageDataset()
-    train_dataset, test_dataset, validation_dataset = torch.utils.data.random_split(dataset,[500, 165,165]) 
-    BATCH_SIZE = 5
-    dataloader = {
-    "train": torch.utils.data.DataLoader(
-        train_dataset,
-        batch_size=BATCH_SIZE,
-        shuffle=True,
-        pin_memory=torch.cuda.is_available(),
-        num_workers = 8,),
-    "validation": torch.utils.data.DataLoader(
-        validation_dataset, 
-        batch_size=BATCH_SIZE, 
-        pin_memory=torch.cuda.is_available(),
-        num_workers = 8),
-    "test": torch.utils.data.DataLoader(
-        test_dataset, 
-        batch_size=BATCH_SIZE, 
-        pin_memory=torch.cuda.is_available(), 
-        num_workers = 8),
-    }
-    configuration =  get_nn_config('nn_config.yaml')
-    model = NeuralNetwork(config=configuration)
-    find_best_nn()
+    # dataset= AirbnbNightlyPriceDataset()
+    # train_dataset, test_dataset, validation_dataset = torch.utils.data.random_split(dataset,[500, 165,165]) 
+    # BATCH_SIZE = 5
+    # dataloader = {
+    # "train": torch.utils.data.DataLoader(
+    #     train_dataset,
+    #     batch_size=BATCH_SIZE,
+    #     shuffle=True,
+    #     pin_memory=torch.cuda.is_available(),
+    #     num_workers = 8,),
+    # "validation": torch.utils.data.DataLoader(
+    #     validation_dataset, 
+    #     batch_size=BATCH_SIZE, 
+    #     pin_memory=torch.cuda.is_available(),
+    #     num_workers = 8),
+    # "test": torch.utils.data.DataLoader(
+    #     test_dataset, 
+    #     batch_size=BATCH_SIZE, 
+    #     pin_memory=torch.cuda.is_available(), 
+    #     num_workers = 8),
+    # }
+    # configuration =  get_nn_config('nn_config.yaml')
+    # model = NeuralNetwork(config=configuration)
+    # find_best_nn()

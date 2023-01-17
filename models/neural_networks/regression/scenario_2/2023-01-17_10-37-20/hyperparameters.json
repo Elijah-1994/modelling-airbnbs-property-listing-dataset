@@ -1,0 +1,1 @@
+{"Optimizer": "ADADELTA", "lr": 0.5, "rho": 0.45, "eps": 2e-06, "weight_decay": 0.5, "hidden_layer_width": 5, "depth": 20}

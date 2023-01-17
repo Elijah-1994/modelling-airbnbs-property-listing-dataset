@@ -1,0 +1,1 @@
+{"Optimizer": "ADAM", "lr": 0.0025, "eps": 2.5e-08, "weight_decay": 1, "amsgrad": true, "foreach": true, "maximize": false, "fused": false, "hidden_layer_width": 5, "depth": 20}
