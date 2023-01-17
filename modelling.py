@@ -33,18 +33,18 @@ np.random.seed(2)
 warnings.filterwarnings('ignore')
 
 def evaluate_all_models():
-    model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(SGDRegressor(),X,y,X_test,y_test,{
-        'learning_rate':['constant','optimal','invscaling','adaptive'],
-        'penalty':['l2', 'l1', 'elasticnet','None'],
-        'alpha':[0.0001,0.0002,0.0003],
-        'l1_ratio':[0.15,0.1,0.25], 
-        'max_iter':[1000,1250,1500,1750,2000], 
-        'tol':[0.001,0.02,0.003],
-        'epsilon':[0.1,0.2,0.3,0.5,0.9],
-        'eta0':[0.01,0.02,0.03,0.05,0.09],
-        'power_t':[0.25,0.35,0.45],
-                                    })
-    save_model(model,best_parameters,performance_metrics,folder='models/regression/linear_regression/', module = 'SKlearn')
+    # model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(SGDRegressor(),X,y,X_test,y_test,{
+    #     'learning_rate':['constant','optimal','invscaling','adaptive'],
+    #     'penalty':['l2', 'l1', 'elasticnet','None'],
+    #     'alpha':[0.0001,0.0002,0.0003],
+    #     'l1_ratio':[0.15,0.1,0.25], 
+    #     'max_iter':[1000,1250,1500,1750,2000], 
+    #     'tol':[0.001,0.02,0.003],
+    #     'epsilon':[0.1,0.2,0.3,0.5,0.9],
+    #     'eta0':[0.01,0.02,0.03,0.05,0.09],
+    #     'power_t':[0.25,0.35,0.45],
+    #                                 })
+    # save_model(model,best_parameters,performance_metrics,folder='models/regression/linear_regression/', module = 'SKlearn')
     
     model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(DecisionTreeRegressor(),X,y,X_test,y_test,{
         "criterion":['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
