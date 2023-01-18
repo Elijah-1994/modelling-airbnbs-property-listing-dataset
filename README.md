@@ -1,7 +1,9 @@
-## Modelling Airnbs Property Listing Dataset Project
+## Modelling Airbnb Property Listing Dataset Project
 &nbsp;
 
-The aim of this project is to utilise selenium webdriver and python methods to scrape text and image data from web html links of a chosen website and upload the python script and associated data onto dockerhub. The first step is to choose a website to scrape. It was descided to scrape text and image data of manga books on www.waterstones.com/ <br />
+The aim of this project is to develop a framework for a wide range of machine learning models that can be applied to various datasets. The main dataset used is the
+Airbnb property listing dataset.<br />
+
 &nbsp;
 
 
