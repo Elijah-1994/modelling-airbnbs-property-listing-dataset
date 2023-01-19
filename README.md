@@ -188,7 +188,7 @@ In general ML models the features dataset would be split into Training,Test and 
 &nbsp;
 ![Alt text](project_images/Figure_13_Regression_Tune.PNG)
 
-Figure 12 - Cross validation diagram
+Figure 13 - Cross validation diagram
 
 _Remaining GridSearchCV parameters_
 
@@ -210,11 +210,19 @@ The __save_model function__(Figure 14) takes in the model,best_parameters,perfor
 
 &nbsp;
 
+![Alt text](project_images/Figure_14_Save_model.PNG)
+Figure 13 - Save model function
 
 
+_Beat the baseline regression model_
 
+In order to improve the baseline regression model, it was decided to apply different regression models provided by Sklearn. This includes decision trees, random forests, and gradient boosting. In order to run these addtional models they are first imported from Sklearn. The __evaluate_all_models function__ calls the __tune_regression_model_hyperparameters functions__ for each model scenario sequentially and the __save_model function__ is called to save the best model, hyperparameters and performance metrics.
 
+&nbsp;
 
+__find the best overall regression model__
+
+In order to find the best overall regression model the performance metric(RMSE) needs to be compared against each model scenario. The __find_best_model function__ loads the RMSE for each model scenario and appends to a list, then a for loop is coded to find the lowest RMSE which will decide the best overall regression model and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE and was the best regression model for price night model scenario.
 
 
 ## Milestone 3 - Documentation and testing
