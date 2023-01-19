@@ -279,105 +279,136 @@ Similar to the regression model in milstone 2 the performance of the baseline mo
 
 
 ![Alt text](project_images/Figure_18_evaluate_all_models.PNG)
-Figure 17 - __evaluate_all_models__ function
-
-
+Figure 18 - __evaluate_all_models__ function
 
 
 _Find the overall classification model_
 
 The __find_best_model function__ is adapted to take in a keyword argument called task_folder. This is to ensure the function finds the correct models (i.e regression or classification). 
-The precision score was decided as the performance metric to find the best model. The __find_best_model function__ loads the precision for each model scenario and appends to a list, then a for loop is coded to find the highest precision score and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE and was the best regression model for price night model scenario.
+The precision score was decided as the performance metric to find the best model. The __find_best_model function__ loads the precision for each model scenario and appends to a list, then a for loop is coded to find the highest precision score and then returns the model, hyperparameters and performance metrics. The decision tree  algorithm contained produced the highest precision score and was the best regression model for airbnb property category  scenario.
 
-__find the best overall regression model__
+Figure 19 - _Find_best_model_function_
+![Alt text](project_images/Figure_19_Find_best_model.PNG)
 
-In order to find the best overall regression model the performance metric(RMSE) needs to be compared against each model scenario. The __find_best_model function__ loads the RMSE for each model scenario and appends to a list, then a for loop is coded to find the lowest RMSE which will decide the best overall regression model and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE and was the best regression model for price night model scenario.
+## Milestone 4 - Create a configurable neural network
 
+__define first neural network model__
 
+_ class AirbnbNightlyPriceDataset_
 
-&nbsp;
+In order run a neural network with pytorch, the  model data needs be in the correct format which are pytorch tensors. 
+Pytorch provides a way to create data via torch.utils.data module. it allows us to:
 
-__Refactoring__
+* Create custom datasets
+* Quickly load data in batches using multiple processes  space' and other strings not needed and replace this with ''.
+* Pin data to GPU memory for faster transfers
+  
+The __class AirbnbNightlyPriceDataset__ is a map style-data set which inherits from the torch.utils.data Dataset. The methods within the class are detailed below.
 
-The first step was to review and refractor the code written in milestone 2. This included;
+__init method__
 
-* Renaming methods and variables so that they are clear and concise to any who reads the script.
-* Ensuring that the appropriate methods were made private.
-* Re-ordering the sequence of the imports required for the code to run in alphabetical order.
-* Adding docstrings to methods.
+The __init method__ calls the __super().__init__() method__ which delegates the function call to the parent class, which is nn.Module. This is needed to initialise the nn.Module properly. The __load_airbnb(df)__ function is called which loads the features(tabular data) and label(price_night) to __numpy method__ is called to convert the features and label into numpy arrays
 
- These improvements makes the code look clearer and more user friendly.
+__getitem method__
 
-&nbsp;
+This method function loads and returns a sample from the dataset at the given index (idx)
 
-__Unit testing__
+__len method__
 
-The second step was to set up unit tests for each public method. This was done by creating a test.py file which contains &ensp;__class producttestcase method__&ensp; to test each method. The main  purpose of tests is to ensure each public method returns the expected data type (string,list,dictionary) and to ensure the scrapper is correctly scrapping all the books from each page. This is to ensure that the code is processing the correct data as expected. Each unit test passed for each method.
-
-
-__Project management__
-
-The last step is to organise and add the relevant files which will ensure the scripts is packaged correctly. This includes adding;
-
-* Renaming the python script as 'WaterstonesScrapper.py' and placing the script into a project folder.
-* Placing the test file into a test folder.
-* Creating a requirements.txt file which contains the external dependencies and versions.
-* Creating a setup.py and setup.cfg which contains the meta data of the project and packages which need to be installed.
-* Creating README.md file 
-* Creating a license file which describes the license of the project.
-* Creating a gitignore file.
-
-## Milestone 4 - Containerising the scraper
+The method returns the number of samples in our dataset.
 
 &nbsp;
 
-__Headless mode__
+![Alt text](project_images/Figure_20_Class.PNG)
+Figure 20 - class AirbnbNightlyPriceImageDataset
 
-After confirming the unit tests still run, the next step was to run the scraper file in headless mode without the GUI. This was done so that the script could be run correctly in docker. The correct&ensp;__options arguments__&ensp; were coded into the __init method__ to allow the headless mode to work.
+_Dataloader_
 
-![Alt text](project_images/Milstone%204%20-%20options%20arguments.PNG)
-*Figure 11 - Options arguments*
+Dataloader batchaes the data so that it can be easily consumed by neural network. The data loader(Figure 21) is represented as a dictionary and the torch.utils.data.__random_split()__ is called to split the data into train,test and validation data sets and this is assigned in the dataloader. The arguments defined in the data_loader are detailed below: 
 
 
-&nbsp;
-
-__Docker image__
-
-In order to build the docker image a docker file which contains the instructions on how to build the image is first created. A docker account was also created in order to upload the image file. The desktop app was downloaded.
-
-The docker file contains the following;
-
-* From - The base image for the docker image(python).
-* Copy - Copies everything in the docker file directory (requirements.txt, scraper folder) into the container.
-* Run -  Installs the required dependencies for the script to run. 
-* CMD - Specifies the instruction that is to be executed when a Docker container starts.
-
-&nbsp;
-
-![Alt text](project_images/Milstone%204%20-%20docker%20file.PNG)
-*Figure 12 - Dockerfile*
-
+* Batch_size- sets the size of the batches 
+* Shuffle = True - Ensures that data is shuffled before each iteration
+* Pin in_memory=torch.cuda.is_available() - sets where tensors should be loaded in pinned memory regions which may improve tensore transfor to GPU.
+* num_of_workers = 8 - specifies how many processes in paralel will be used to load data. number  of workers is set by diving the output of calling the  __multiprocessing.cpu_count function__ by 2.
 
 &nbsp;
 
 
-The next step is to build the image using the docker build command.
+![Alt text](project_images/Figure_21_Data_Loader.PNG)
+Figure 21 - Dataloader
+
+_Define the first neural network model_
+
+_class NeuralNetwork_
+
+The neural network is defined by by subclassing the nn.Module, and initialising the neural network layers in __init__. The input and output layers are defined by calling the __torch.nn.Linear()__ method. The __nn.ReLU()__ layer is placed inbetween the input and the output layer. The ReLU IS is an activation function that introduces the property of non-linearity to a deep learning model and solves the vanishing gradients issue. The ReLU method replaces all the negative values with 0 and all the non-negative left unchanged. These layers are placed within __torch.nn.Sequential class__ which is a sequential container which can run the layers sequentially. The __forward method__ will pass the data into the computation graph (ur neural network). This will represent our feed-forward algorithm.
+
+
+![Alt text](project_images/Figure_22_Data_Loader.PNG)
+Figure 21 - class neural network
+
+_Create the training loop and train the model to completion_
+
+__train function__
+
+The __train function__ passes the model and the epoch for each iteration and a for loop is coded which splits the features and labels in each  training batch then calls the __to.torch()__ method to convert to the datatype from float 64 into float 32. A prediction is then made by passing the features into the __forward method__ in the neural network class and the loses is calculated and optimised as detailed in the paragraph below. The model is then trained for the number of epochs(Figure 22). The __summary writter function__ method is called in the train loop in order to create a graphical representation of optmised loss function. The loops then loads the data in the validation data set and repeats the process of the training dataset.
+
+
+__loss function__
+
+The loss function within the training loop is then calculated between the prediction and label using the __F.mse_loss function__. The __optimiser.zero_grad() function__ is called before the loss function, since the __optimiser.zero_grad() function__ sets the gradients to zero during each batch loop before starting to do backpropragation this ensures that losses decrease during each batch. The __backward() function__ is called after the loss function which computes backward propagation(calculates the gradients) and the __optimiser.step() function__ is then called which updates the weights.
+
+![Alt text](project_images/Figure_22_Data_Loader.PNG)
+Figure 22 -  Train function
+
+
+_Visualise the metrics_
+&nbsp;
+As mentioned above the __writer.add_scalar function__ saves the loss data and outputs into graphical format in tensor board as shown in Figure below.
+
+
+Figure 23 -  Train graph metrics
+
+
+Figure 24 -  validation graph metrics
+
 
 &nbsp;
 
-__Docker container__
+
+
+_Create a configuration file to change the characteristics of the model_
 
 &nbsp;
 
-Now that the docker image is built the next step is to run the docker container using the docker run command. The script within the container ran fine with no issues. The container is then pushed onto docker hub.
+nn_config.yaml file was created which contains a dictionary of the architecture of the neural network model. This includes:
 
-&nbsp;
+
+* The name of the optimiser(SGD) 
+* The learning rate(lr)
+* The width of the hidden layer
+* The depth of the model
+
+Within the modelling.py script the __get_nn_config() function__ which takes the yaml as an argument and returns it a dictionary. 
+
+_hidden layer and model depth_
+In order to set these parameters into the model, the configuration file is passed into the model class upon initialisation. The order of the layers in the neural network should be the input layer then ReLU activation function then the hidden layer(ReLU set inbetween each hidden layer) then the output layer. In order to pass this configuration file into the nn.sequential the __OrderedDict function__ is assigned to store these layers in the correct order and a for loop is coded to generate the hidden layers and ReLU layers based on the width of the hidden layer and depth of the model(loaded from the config file). The ordered dict is then passed as an argument in the __nn.sequential class__
+
+_Optimiser parameters
+The configuration file is passed into the __train model function__ w the __torch.optim.SGD class__ is called to load in the optimiser parameters (lr).
+
+![Alt text](project_images/Figure_25_Order_dict.PNG)
+
+Figure 25 -  method of creating model layers for neural network
 
 ## Milestone 5 - Set up a CI/CD pipeline for your docker image
 
 &nbsp;
 
 in order to fully automate the docker image build and container run, it was first required to set up Github actions on the repository. 
+
+
 
 __Create repository__
 &nbsp;
@@ -399,3 +430,16 @@ __Define the workflow steps__
 The  last step includes setting up the build context within the yaml file. The contains all the information for docker hub to copy to files mentioned in the dockerfile then build an image and automatically push to docker hub.
 
 The last step is to commit the changes in the repo which would automatically start workflow. In order to make sure the workflow worked the image pushed on to docker hub was downloaded and a container was created and ran to ensure the script ran correctly.  A docker compose file which contains commands to self automate running containers was also created.
+
+&nbsp;
+
+__Refactoring__
+
+The first step was to review and refractor the code written in milestone 2. This included;
+
+* Renaming methods and variables so that they are clear and concise to any who reads the script.
+* Ensuring that the appropriate methods were made private.
+* Re-ordering the sequence of the imports required for the code to run in alphabetical order.
+* Adding docstrings to methods.
+
+ These improvements makes the code look clearer and more user friendly.

@@ -62,15 +62,13 @@ def train(model, epochs=10):
             features = features.to(torch.float32)
             features = features.reshape(BATCH_SIZE, -1)
             labels = labels.to(torch.float32)
+            optimiser.zero_grad()
             prediction=model(features)
             loss = F.mse_loss(prediction[0],labels)
-            optimiser.zero_grad()
             loss.backward()
-            print(loss)
             optimiser.step()
             writer.add_scalar('loss',loss.item(),)
             batch_idx+=1
-
 
 if __name__ == '__main__':
     model = LinearRegression()
