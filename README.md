@@ -158,6 +158,9 @@ _simple regression model to predict the nightly cost of each listing_
 
 The modelling.py script was created an contains the main code  for the various models. The first step is create a simple regression model to predict the nightly cost  of each listing. the __load_airbnb function_ is imported from the tabular_data.py which contains the df for the  features (numerical data - nightly cost) and label (nightly cost). This model is trained using the SKlearn __Stochastic Gradient Descent (SGD)Regressor class__. The __test split function__  is used to split the data into training and testing sets. The training set is used to train the model and the test set is used to provide an unbiased evaluation of a final model fit on the training data set. SGD model is imported from Sklearn and The next step to create a variable which calls the __SGDRegresssor__ class. The __fit()__ function is  then called to fit the training data with SGD. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the nightly cost based on the fitted  training data set. The __np.random.seed function__ ensures(look it up in videos again)(FIGURE 11)
 
+
+
+
 _Evaluation the regression model performance_
 
 SKlearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the Sklearn metrics. The __mean_square_error__ and __r2score__ functions are then called to calculate the mean square error and the R2 score on the trained data set (Figure 11). 
@@ -225,7 +228,72 @@ __find the best overall regression model__
 In order to find the best overall regression model the performance metric(RMSE) needs to be compared against each model scenario. The __find_best_model function__ loads the RMSE for each model scenario and appends to a list, then a for loop is coded to find the lowest RMSE which will decide the best overall regression model and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE and was the best regression model for price night model scenario.
 
 
-## Milestone 3 - Documentation and testing
+## Milestone 3 - Create a classification model 
+
+&nbsp;
+
+_simple classification model to predict the category of the airbnb properties_ 
+
+In order run the simple classification model the __load_airbnb function__  is used to generate the features (tabular data) and label ('category').
+
+![Alt text](project_images/Figure_15_occurance_of_each_airbnb_category.PNG)
+
+Figure 15 - Occurance of each type of ainbnb property 
+
+in order to pass the data into the model, the label needs to be encoded to its numerical representation by using label Encoder. This is done by importing the __label Encoder function__
+from the Sklearn and calling the an instance of the __label Encoder function__ then the __transform function__ to encode the label data. As with the regression model the next step is then to split the data into test and train datasets. The model is then trained using Sklearn __Logistic regression class__. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the category of the air bnb apartments based on  training data set(Figure 16). The __np.random.seed function__ ensures(look it up in videos again)(FIGURE 11)
+
+
+![Alt text](project_images/Figure_16_Logistic_model.PNG)
+
+Figure 16 - Logistic regression model code
+
+_Evaluation the regression model performance_
+
+SKlearn is then used to evaluate the key measures of performance of the logistic reg. This is done by importing the __precision, recall and f1_score functions__ from the Sklearn metrics. The __precision, recall and f1_score functions__ functions are then called to calculate the mean square error and the R2 score on the test data set (Figure 16. 
+
+
+&nbsp;
+
+
+_Tune the hyperparameters of the model using methods from SKLearn_
+
+Just like the regression models the hyperparameters for the logistic regression needs to be tuned. The steps follow the same process as mentioned within the Milestone but instead the 
+code is wrapped in the __tune_classification_model_hyperparameters functions__(Figure 17).
+
+&nbsp;
+
+
+![Alt text](project_images/Figure_17_classification_tune.PNG)
+Figure 17 - __tune_classification_model_hyperparameters()__ function
+
+__save the classification model__
+
+Similar to the regression model in milstone 2 the logistic regression model is saved along with its hyperparameters and performance metrics.
+
+__beat the baseline classifcation model__
+
+&nbsp;
+
+Similar to the regression model in milstone 2 the performance of the baseline model can be improved by using different models provided by SKlearn. This is done by using the classification version of the decision trees, random forest and gradient boosting algorithms. The __evaluate_all_models__(Figure 18) calls the __tune_classification_model_hyperparameters functions__ for each scenario sequentially and returns the best model, hyperparameters and performance metrics and the _Save_model function__ saves this data accordingly.
+
+
+![Alt text](project_images/Figure_18_evaluate_all_models.PNG)
+Figure 17 - __evaluate_all_models__ function
+
+
+
+
+_Find the overall classification model_
+
+The __find_best_model function__ is adapted to take in a keyword argument called task_folder. This is to ensure the function finds the correct models (i.e regression or classification). 
+The precision score was decided as the performance metric to find the best model. The __find_best_model function__ loads the precision for each model scenario and appends to a list, then a for loop is coded to find the highest precision score and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE and was the best regression model for price night model scenario.
+
+__find the best overall regression model__
+
+In order to find the best overall regression model the performance metric(RMSE) needs to be compared against each model scenario. The __find_best_model function__ loads the RMSE for each model scenario and appends to a list, then a for loop is coded to find the lowest RMSE which will decide the best overall regression model and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE and was the best regression model for price night model scenario.
+
+
 
 &nbsp;
 
