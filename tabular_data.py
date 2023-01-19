@@ -2,7 +2,10 @@
 import pandas as pd
 
 def remove_rows_with_missing_ratings(df_copy):
-    df_1 = df_copy.dropna(subset=['Cleanliness_rating', 'Accuracy_rating','Communication_rating', 'Location_rating','Check-in_rating', 'Value_rating'])
+    df_1 = df_copy.dropna(subset=['Cleanliness_rating', 'Accuracy_rating','Communication_rating', 
+                                  'Location_rating','Check-in_rating', 'Value_rating'])
+    print(df_1.isna().sum())
+    
     return df_1
 
 def combine_description_strings(df_1):
@@ -37,9 +40,10 @@ def load_airbnb(new_df):
 
 if __name__ == '__main__':
     df = pd.read_csv("airbnb-property-listings/tabular_data/listing.csv")
+    df.info()
     df_copy = df.copy()
     df_copy = df_copy.replace(r'\r+|\\n+|\t+','', regex=True)
     new_df = clean_tabular_data()
     new_df.to_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv", index = False)
-    load_airbnb(new_df)
+    # load_airbnb(new_df)
     

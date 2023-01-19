@@ -7,148 +7,215 @@ Airbnb property listing dataset.<br />
 &nbsp;
 
 
-## Milestone 1 - Prototype finding the individual page for each entry 
+## Milestone 1 - Data Preparation
 &nbsp;
 
-__Setting up selenium__ 
+__Tabular Data__ 
 
-The first step is to install chromedriver to google chrome. The chromedriver is sent to the relevant python path and selenium is installed using pip install selenium. Now the selenium module can be imported into the python script.
+The first step is to download and save images and tabular data folder. The tabular data folder contains the AirBnbData.csv. The tabular data has the following colums:
+
+* ID: Unique identifier for the listing
+* Category: The category of the listing
+* Title: The title of the listing
+* Description: The description of the listing
+* Amenities: The available amenities of the listing
+* Location: The location of the listing
+* guests: The number of guests that can be accommodated in the listing
+* beds: The number of available beds in the listing
+* bathrooms: The number of bathrooms in the listing
+* Price_Night: The price per night of the listing
+* Cleanliness_rate: The cleanliness rating of the listing
+* Accuracy_rate: How accurate the description of the listing is, as reported by previous guests
+* Location_rate: The rating of the location of the listing
+* Check-in_rate: The rating of check-in process given by the host
+* Value_rate: The rating of value given by the host
+* amenities_count: The number of amenities in the listing
+* url: The URL of the listing
+* bedrooms: The number of bedrooms in the listing
+* Unamed: 19: empty column
+  
+Pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool,built on top of the Python programming language. In order to
+process the tabular data pandas was installed (pip install pandas). 
+
+The tabular_data.py script contains the functions coded in order to clean and process the tabular data. The  next step is to code __read_csv()__ function which reads in the tabular data csv and converts it to a pandas data frame(pd). The __copy()__ method is then called to create a copy of the df. This copy of the df can now be cleaned and manipulated. 
+
+_missing ratings_ 
 &nbsp;
 
-![Selelium module](project_images/Milestone_1-Selenium-module.PNG)
+The __isna().sum()__ function is used to calculate the sum of NaN values in the pd data frame. Figure 1 belows shows that the rating columns contained missing values. 
 
-*Figure 1 - selenium import in python*
+![NaN values count](project_images/Figure_1_sum_of_NaN_values_in_DF.PNG)
 
+*Figure 1 - Sum of NaN values in the pd data frame
+
+This would cause problems when trying to train the machine learning models therefore, a function was coded (figure 2) which passes the df as an argument and creates a new data frame (df1) with the __dropna(subset)__. The ratings columns now contain 0 missing values as shown in Figure 3 below. The function returns the new data frame.
+
+![Alt text](project_images/Figure_2_remove_rows_with_missing_ratings_func.PNG)
+
+*Figure 2 - Remove rows with missing ratings function
+
+
+![Alt text](project_images/Figure_3_sum_of_NaN_values_in_DF.PNG)
+
+*Figure 3 - Sum of NaN values in the pd data frame
+
+_Description strings_ 
 &nbsp;
 
-__Class WaterstonesScrapper.__
+The __combine_description_strings__ function (figure 4) is coded which passes the data frame which is returned from the  __remove_rows_with_missing_ratings__ function and processes and cleans the strings within the description column. The process includes the:
 
-A class is coded which contains the various methods in order to scrape and store the required data. The def __init__ method was created in order to initialize the first instance of the class. in order to use selenium to connect to a website, the __webdriver.Chrome() method__ is stored in the self.driver variable this would allow selenium to connect to the google chrome browser. the __self.driver.get() method__  is used to allow selenium to drive towards waterstones.com 
-
-&nbsp;
-
-__accept_cookies() method:__
-
-Once selenium drives towards the waterstones homepage there is an accept_cookies button which needs to be clicked on in order for the scrapping process to work. The __accept_cookies method__ consists of the code to complete this task. the first step is to inspect the html web elements on the waterstones website by pressing ctrl+c to find the element xpath file of the accept cookies button. 
-
-&nbsp;
-
-![Alt text](project_images/Milestone_1-accept_cookies_html.PNG)
-*Figure 2 - html xpath of the accept cookies button*
-
- &nbsp;
-
-The relative xpath was located and copy and pasted into the &ensp; __self.driver.find_element method__ &ensp; which allows the driver to point to the element. The &ensp; __accept_cookies_button.click() method__  &ensp;allows the webdriver to click on the accept cookies button on the waterstones website. The __time.sleep method__ is coded after so that the webdriver will wait a couple of seconds, so that the website doesn't suspect the user to be a bot.
-
-![Alt text](project_images/Milestone_1-accept_cookies_method.PNG)
-*Figure 3 - accept cookies button method*
-
-&nbsp;
-
-__navigate_to_manga_page_1 method__
-
-This method is coded in order for the webdriver to navigate to the first page of the see more manga section. As with the __accept cookies method__ the first step is to inspect the html elements and find the relevant xpath in order to complete this task. 
-
-&nbsp;
-
-![Alt text](project_images/Milestone_1-inspect_manga_section.PNG)
-*Figure 4 - manga section from page html elements*
-
-&nbsp;
-
-On inspection the html elements were contained within a tag which include a hyperlink reference 'href'. The html elements within the first page of the see more manga section were located within the html class='name' hence in order to store the hyperlinks the relative xpath are placed into the &ensp; __find_elements method__ &ensp; which returns the various web session links. in order to extract the html links a for loop was coded which iterates through each web element and calls the &ensp; __get.attribute('href') method__.  <br />
-&nbsp;
-
-Each link was then stored into a list. An if statement was coded in order to extract the correct html link from the web elements and is returned in the method as a string.
-
-&nbsp;
-
-
-![Alt text](project_images/Milestone_1-navigate_to_manga_page_1.PNG)
-*Figure 5 - navigate_to_manga_page_1 method*
-
-&nbsp;
-
-__get_links_manga_page_1 method__
-&nbsp;
-
-The purpose of this method is to extract the html links of each manga books on page 1 and store them within a list. The html elements on page 1 were inspected to locate the html tags which store the href to each manga book on page 1. Once located the relative xpath are copied ito the __find_elements method__.
-
-&nbsp;
-![Alt text](project_images/Milestone_1-inspect_manga_section_page_1.PNG)
-*Figure 6 - html elements on page 1*
-&nbsp;
-
-The method calls the __navigate_to_manga_page_1__ method which returns the html link of the see more manga section page 1 and the &ensp; __driver.get method__&ensp; is called so that the webdriver navigates to the first page. The __find_elements method__ is called to retrieve the web elements and then a for loop is coded in which the &ensp; __get.attribute('href') method__ &ensp; is called to extract the html link for each book on page 1 and  is appended to a list. The list along with the current url to page 1 is returned in a tuple.
-
-
-&nbsp;
-![Alt text](project_images/Milestone_1-get_links_manga_page_1.PNG)
-*Figure 7 - get_links_manga_page_1 method*
-
-&nbsp;
-
-__get_links_manga_page_2_to_page_5 method__
-
-&nbsp;
-
-In order to expand the data extracted for this project it was decided to also scrape data from pages 2 to page 5 in the see more manga section. The purpose of this method is to store the html links of the books from page 2 to page 5 and append to the list of the html links extracted from page 1. The first step was to call the &ensp;__get_links_manga_page_1__&ensp; method which returns the url of see more mange section page .
-
-&nbsp;
-
-On inspection the url for pages 2 to the page 5 were similar to page 1 (minus the page number) therefore The string of the url was adjusted to 'https://www.waterstones.com/category/graphic-novels-manga/manga/page' and a for loop is was coded to update the url with the page numbers from 2 to 5 and these urls were saved in a list. The same methods to extract the html links were coded and the html links were appended to the list which contains the html links from page 1.
-
-![Alt text](project_images/Milestone_1-get_links_manga_page_2_to_5.PNG)
-*Figure 8 - get_links_manga_page_2_to_page_5 method*
-&nbsp;
-
-__scrapper  method__ 
-
-This method contain the methods coded for milestone 1. This method is then called in a if __name__ == "__main__"  block.
-
-&nbsp;
-## Milestone 2 - Retrieve data from details page
-&nbsp;
-
-__create_directory method__
-
-This method creates a folder directory to save the images scrapped from each book and the corresponding text data. This is done by importing os and applying the&ensp; __os.path.join method__.
-
-
-![Alt text](project_images/Milstone-2%20-%20create%20directory.PNG)
-*Figure 9 - create_directory method*
+* Creates a new data frame(df2) using df1 and calls the __dropna(subset)__ to remove the NaN values in the description column. 
+* Calling the __str.replace()__ function to replace the strings 'About this space' and other strings not needed and replace this with ''.
+* Calling the __str.join()__ function to join the strings in the description column.
+* Calling the __to_list()__ function to combine the list items into the same string.
+* returns df2
 
 &nbsp;
 
 
-__scrape_links_and_store_text_image_data method__
 
-__Text data__
-&nbsp;
+![Alt text](project_images/Figure_4_combine_description_string_func.PNG)
 
-This method is coded within a for loop which first scrapes the text data for each book and stores the data within a dictionary. As with the methods mentioned in milestone 1 the first step is to inspect the html elements to each link to find the xpath of the relevant data and place the xpaths into the &ensp;__find_elements method__&ensp;.  The text data included each books ISBN number, author, book format, and other information. Each dictionary is appended to a list. 
+*Figure 4 - Combine description string_function
 
-&nbsp;
+_Feature values_ 
 
-![Alt text](project_images/Milestone_2%20-scrape_links_and_store_text_and_image_data.PNG)
-*Figure 10 - scrapping and saving text data*
-
-
-Each book is also assigned a unique id number (generated by importing the from uuid import uuid4 and calling the &ensp;__str(uuid4()) method__&ensp;, this id number is also be used to label each book image along with a timestamp (generated by importing the import time
-from datetime import datetime and calling the &ensp;__datetime.now()__ &ensp; and &ensp;__time.strftime("%Y-%m-%d")__&ensp; methods.
-
-__Image data__
-&nbsp;
-
-the method also finds the html element of each book element and calls the &ensp;__get_attribute('src') method__&ensp; to retrieve the src link for each image and then the &ensp;__requests.get().content method__&ensp; to retrieve the contents of each image(bytes). A context manger is coded in order to upload load each book image into the correct directory. This method returns the list which contains the dictionaries of the text data for each book.
+The __set_default_feature_values(__ function (figure 5) is coded which passes the data frame which is returned from the __combine_description_strings__ function and creates a new df (df3)
+using df2 and calls the __fillna(1)__ function which replaces the NaN values in the "guests", "beds", "bathrooms" and "bedrooms" columns with the value 1. the function returns the data frame(df3).
 
 &nbsp;
 
-![Alt text](project_images/Milestone_2%20-scrape_links_and_store_text_and_image_data_2.PNG)
-*Figure 11 - scrapping and saving image data*
+
+![Alt text](project_images/Figure_5_set_default_features_values_func.PNG)
+
+*Figure 5 - Set default features values function 
+
+
+
+_clean tabular data_ 
+
+The functions mentioned above are wrapped into the __clean_tabular_data__(figure 6) hence when called a new df is created with the cleaned tabular data then the __to_csv__ function is called to create a new csv labeled as 'clean_tabular_data.csv' from the new df.  
+
+![Alt text](project_images/Figure_6_clean_tabular_csv_func.PNG)
+![Alt text](project_images/Figure_6_clean_tabular_csv_func_pt2.PNG)
+
+*Figure 6 - clean tabular data function 
+
+&nbsp;
+
+__Format Image Data__ 
+
+The prepare prepare_image_data.py script contains the code which processes the image data. The images are saved in a folder which is named as the UUID of the listing which it contains the images for.
+
+_downloadDirectoryFroms3 function_ 
+
+The __downloadDirectoryFroms3__ (Figure 7) takes the aws S3 bucket name and Remote directory name as an argument  and downloads the images from the 'airbnb-property-listings' and saves into to the images folder.
+
+![Alt text](project_images/Figure_7_downloadDirectoryFroms3.PNG)
+
+*Figure 7 - downloadDirectoryFroms3 function
+
+_create_directory function_ 
+
+The __create_directory function__ (Figure 8) creates a new directory for the images that will be processed.The function returns the path of the directory.
+
+
+![Alt text](project_images/Figure_8_create_directory.PNG)
+
+*Figure 8 - Create directory function
+
+_calculate_smallest_image_height function_
+
+The __calculate_smallest_image_height function__ takes in the path returned from the __create_directory function__ and for loop is coded which iterates through each image and calculates the images height and appends the height to the image_height list.The smallest image height is calculated using the __min__ function. The function returns the smallest image height.
+
+_delete_image_by_mode_
+
+The __delete_image_by_mode__ function (Figure 9) takes in the  image mode (set to RBG), the file path of the resized image and the image and codes a for loop which check if the image mode of the image is not set to RBG and deletes the image file path if this is the case.
+
+![Alt text](project_images/Figure_9_deletes_images_by_mode_func.PNG)
+
+*Figure 9 - deletes images by mode function
+
+_resize_images_
+
+The __resize_images function__ takes in the path returned from the __create_directory function__ and codes a for loop which iterates through the images and  calls the __calculate_smallest_image_height function__ to return the smallest image height (base_height) then calculates the image aspect ratio (width/height) and resizes the image height based a ratio of the smallest image height (base_height*aspect_ratio) and saves the image in a directory located in the processed_images folder. This function is called  within the __name__ == "__main__"  block
+
+![Alt text](project_images/Figure_10_resize_images_func.PNG)
+
+Figure 10 - resize images function
+
+&nbsp;
+
+_get data in the right format_
+
+For the first batch of modelling the features are the numerical tabular data and the label is the "price_night" feature. Within the tabular_data.py script the __load_airbnb function__ is coded which takes in the the new df created from the 'clean_tabular_data.csv' and assigns the features a new df which calls the select_dtypes(include='float64') hence the  features df contains the float numerical data. The labels df is then created using the new df and extracts the 'Price_Night' column. The features and labels are returned as a tuple.
+&nbsp;
+
+## Milestone 2 - Create a regresion model
+&nbsp;
+
+_simple regression model to predict the nightly cost of each listing_ 
+
+The modelling.py script was created an contains the main code  for the various models. The first step is create a simple regression model to predict the nightly cost  of each listing. the __load_airbnb function_ is imported from the tabular_data.py which contains the df for the  features (numerical data - nightly cost) and label (nightly cost). This model is trained using the SKlearn __Stochastic Gradient Descent (SGD)Regressor class__. The __test split function__  is used to split the data into training and testing sets. The training set is used to train the model and the test set is used to provide an unbiased evaluation of a final model fit on the training data set. SGD model is imported from Sklearn and The next step to create a variable which calls the __SGDRegresssor__ class. The __fit()__ function is  then called to fit the training data with SGD. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the nightly cost based on the fitted  training data set. The __np.random.seed function__ ensures(look it up in videos again)(FIGURE 11)
+
+_Evaluation the regression model performance_
+
+SKlearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the Sklearn metrics. The __mean_square_error__ and __r2score__ functions are then called to calculate the mean square error and the R2 score on the trained data set (Figure 11). 
+
+![Alt text](project_images/Figure_11_SGD_model.PNG)
+
+Figure 11 - SGD model code
+
+_Evaluation the regression model performance_
+&nbsp;
+
+
+
+_Tune the hyperparameters of the model using methods from SKLearn_
+
+In order to tune the accuracy of the model, the hyperparameters need to be tuned. This is done by implementing sklearns __GridSearchCV libary function__. The __GridSearchCV libary function__ helps loop through predefined hyperparameters and fits the model on the training set. The  __tune_regression_model_hyperparameters functions__(Figure 12) passes the model, X,y,X_test,y_test and a dictionary of the hyperparameters to be tuned and calls the __GridSearchCV libary function__ which loops through the dictionary of hyperparameters then the __fit function__ fits the model, then the __predict function__ makes a prediction on the test data set. The __mean_squared_error function__ calculates the mean squared error bestween the y_test and the predictions. The function returns the the best model, the best model hyperparameters and the hyperparameters.
+
+![Alt text](project_images/Figure_12_CV_diagram.PNG)
+Figure 12 - Cross validation diagram
 
 
 &nbsp;
+
+_Cross validation_
+In general ML models the features dataset would be split into Training,Test and validation sets, however __GridSearchCV libary function__ contains a parameter called cv which stands for cross validation which  is a resampling method that uses different portions of the data to test and train a model on different iterations.In SKlearn the model is trained using k-1 of the folds as training data and then then resulting model is validated on the remaining part of the model(Figure 12).
+&nbsp;
+
+&nbsp;
+![Alt text](project_images/Figure_13_Regression_Tune.PNG)
+
+Figure 12 - Cross validation diagram
+
+_Remaining GridSearchCV parameters_
+
+The remaining paramters called in the __GridSearchCV libary function__ is the estimator which is the model, n_jobs which is set to -1 which means all proccessors are being used (this reduces the run time of the tuning proccess) and the verbose is set to 1 (hence no progress metrics are shown)
+
+&nbsp;
+&nbsp;
+
+_hyperparameter selection_
+
+In general The first value/boolean statement/option to be tuned for each hyperparameter was chosen based on the defaults provided in the SKlearn manual. Then a range of values were tested by increasing/decreasing from the default value. In general each hyperparameter provided in the SKlearn manual was chosen to be tuned. After a few model runs the some hyperparameters were removed due to time constraints.
+
+&nbsp;
+&nbsp;
+
+_Save the model_
+
+The __save_model function__(Figure 14) takes in the model,best_parameters,performance_metrics, and a key work argument folder and saves the best model and its hyperparameters and performance metrics.
+
+&nbsp;
+
+
+
+
+
+
+
 
 ## Milestone 3 - Documentation and testing
 

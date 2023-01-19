@@ -14,6 +14,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import r2_score
 from tabular_data import load_airbnb
 from torch import nn
 from torchmetrics import R2Score
@@ -423,7 +424,7 @@ def find_best_nn():
         train(model,config=configuration)
 
 if __name__ == '__main__':
-    # df = pd.read_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv")
+    df = pd.read_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv")
     # X,y = load_airbnb(df)
     # #regression model
     # n_samples, n_features = 830, 9
@@ -436,9 +437,11 @@ if __name__ == '__main__':
     # label_encoder = LabelEncoder()
     # y = label_encoder.fit_transform(y)
     # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    # evaluate_all_models()
+    #neural network model
     #evaluate_all_models()
-    best_model = find_best_model (task_folder='models/neural_networks/regression/scenario_2/', module = 'Pytorch')
-    print(best_model)
+    #best_model = find_best_model (task_folder='models/neural_networks/regression/scenario_2/', module = 'Pytorch')
+    #print(best_model)
     #neural network model
     # dataset= AirbnbNightlyPriceDataset()
     # train_dataset, test_dataset, validation_dataset = torch.utils.data.random_split(dataset,[500, 165,165]) 
