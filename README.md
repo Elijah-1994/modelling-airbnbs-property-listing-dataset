@@ -52,7 +52,7 @@ The __isna().sum()__ function is used to calculate the sum of NaN (missing) valu
 
 *Figure 1 - Sum of the missing values in data frame*
 
-Missing values in the numerical data will cause issues when trying to train the machine learning models therefore, a function is coded (figure 2) which passes the df as an argument and creates a new data frame (df1) with the __dropna(subset)__ function called. The ratings columns now contain 0 missing values as shown in Figure 3 below. The function returns the new data frame.
+Missing values in the numerical data will cause issues when trying to train the machine learning models therefore, a function is coded (Figure 2) which passes the df as an argument and creates a new data frame (df1) with the __dropna(subset)__ function called. The ratings columns now contain 0 missing values as shown in Figure 3 below. The function returns the new data frame.
 
 <kbd>![Alt text](project_images/Figure_2_remove_rows_with_missing_ratings_func.PNG)<kbd>
 
@@ -61,47 +61,44 @@ Missing values in the numerical data will cause issues when trying to train the 
 
 <kbd>![Alt text](project_images/Figure_3_sum_of_NaN_values_in_DF.PNG)<kbd>
 
-*Figure 3 - Sum of NaN values in the pd data frame*
+*Figure 3 - Sum of NaN values in the df1*
 
-_Description strings_ 
-&nbsp;
-
-The __combine_description_strings__ function (figure 4) is coded which passes the data frame which is returned from the  __remove_rows_with_missing_ratings__ function and processes and cleans the strings within the description column. The process includes the:
-
-* Creates a new data frame(df2) using df1 and calls the __dropna(subset)__ to remove the NaN values in the description column. 
-* Calling the __str.replace()__ function to replace the strings 'About this space' and other strings not needed and replace this with ''.
-* Calling the __str.join()__ function to join the strings in the description column.
-* Calling the __to_list()__ function to combine the list items into the same string.
-* returns df2
+</ins>__Description strings__</ins>
 
 &nbsp;
+The __combine_description_strings__ function (Figure 4) passes the data frame which is returned from the  __remove_rows_with_missing_ratings__ function and processes and cleans the strings within the description column. The function:
 
-
-
-![Alt text](project_images/Figure_4_combine_description_string_func.PNG)
-
-*Figure 4 - Combine description string_function
-
-_Feature values_ 
-
-The __set_default_feature_values(__ function (figure 5) is coded which passes the data frame which is returned from the __combine_description_strings__ function and creates a new df (df3)
-using df2 and calls the __fillna(1)__ function which replaces the NaN values in the "guests", "beds", "bathrooms" and "bedrooms" columns with the value 1. the function returns the data frame(df3).
+* Creates a new data frame(df2) using df1 and calls the __dropna(subset)__ to remove the missing values.
+* Calls the __str.replace()__ function to replace the strings 'About this space' and other strings not needed and replaces this with ''.
+* Calls the __str.join()__ function to join the strings.
+* Calls the __to_list()__ function to combine the list items into the same string.
+* returns df2.
 
 &nbsp;
 
+<kbd>![Alt text](project_images/Figure_4_combine_description_string_func.PNG)<kbd>
 
-![Alt text](project_images/Figure_5_set_default_features_values_func.PNG)
+*Figure 4 - Combine description string_function*
 
-*Figure 5 - Set default features values function 
+</ins>__Feature values__</ins> 
 
+The __set_default_feature_values__ function (Figure 5) passes the data frame which is returned from the __combine_description_strings__ function 
+and calls the __fillna()__ function which replaces the missing values in the "guests", "beds", "bathrooms" and "bedrooms" columns with the value 1. the function returns a new data frame(df3).
 
+&nbsp;
 
-_clean tabular data_ 
+<kbd>![Alt text](project_images/Figure_5_set_default_features_values_func.PNG)<kbd>
 
-The functions mentioned above are wrapped into the __clean_tabular_data__(figure 6) hence when called a new df is created with the cleaned tabular data then the __to_csv__ function is called to create a new csv labeled as 'clean_tabular_data.csv' from the new df.  
+*Figure 5 - Set default features values function*
 
-![Alt text](project_images/Figure_6_clean_tabular_csv_func.PNG)
-![Alt text](project_images/Figure_6_clean_tabular_csv_func_pt2.PNG)
+&nbsp;
+
+</ins>__clean tabular data__</ins>
+
+The functions mentioned above are wrapped into the __clean_tabular_data__(Figure 6) function hence when called a new df is created with the cleaned tabular data then the __to_csv__ function is called to create a new csv labeled 'clean_tabular_data.csv' from the new df.  
+
+<kbd>![Alt text](project_images/Figure_6_clean_tabular_csv_func.PNG)<kbd>
+![Alt text](project_images/Figure_6_clean_tabular_csv_func_pt2.PNG)<kbd>
 
 *Figure 6 - clean tabular data function 
 
