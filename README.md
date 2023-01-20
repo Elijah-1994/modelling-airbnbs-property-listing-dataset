@@ -223,6 +223,9 @@ In general ML models the features and labels dataset is split into Training,Test
 
 <kbd>![Alt text](project_images/Figure_12_CV_diagram.PNG)<kbd>
 Figure X - Cross validation diagram 
+
+&nbsp;
+
 <font size="10"> Figure X - Cross validation diagram</font> 
 <font size="20"> Figure X - Cross validation diagram</font> 
 
