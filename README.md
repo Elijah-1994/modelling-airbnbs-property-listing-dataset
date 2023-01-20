@@ -44,7 +44,7 @@ _missing ratings_
 
 The __isna().sum()__ function is used to calculate the sum of NaN values in the pd data frame. Figure 1 belows shows that the rating columns contained missing values. 
 
-<kbd>![NaN values count](project_images/Figure_1_sum_of_NaN_values_in_DF.PNG)<kbd>
+|![NaN values count](project_images/Figure_1_sum_of_NaN_values_in_DF.PNG)|
 
 
 *Figure 1 - Sum of NaN values in the pd data frame*
