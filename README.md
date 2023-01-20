@@ -189,7 +189,7 @@ The modelling.py script contains the main code for training the various models. 
 SKlearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the Sklearn metrics. The __mean_square_error__ and __r2score__ functions and are then call to calculate the mean square error and the R2 score on the test data set (Figure 13). 
 
 
-<kbd>![Alt text](project_images/Figure_11_SGD_model.PNG)<kbd>
+<kbd>![Alt text](project_images/Figure_13_SGD_model.PNG)<kbd>
 
 Figure 13 - SGD model code
 
