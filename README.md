@@ -402,9 +402,38 @@ The configuration file is passed into the __train model function__ w the __torch
 
 Figure 25 -  method of creating model layers for neural network
 
-## Milestone 5 - Set up a CI/CD pipeline for your docker image
+_save the model_
 
+__train function__
+
+In order to obtain a full suite of performance metric for the model, the following added to the __train function__:
+
+* RMSE loss is calculated for the training and validation prediction by calling the __torch.sqrt() function__ on the mse
+* R*2 score is calculated for the training and validation prediction by calling the intiatie a instance of the __R2Score() class_
+* The time taken to train the model under a key called
+* The average time taken to make a prediction under a key called
+
+THe train function returns the model, hyperparameters and performance metrics.
+
+The _save_model_ function was adapted to take a key word argument module as such that if module = 'Pytorch' the function will detect the model and save it the model alng with the hyperparameters and best parameters accordingly.
+
+_Tune the model_
+
+In order to the model needs to be run with a range of optimisers with a range of parameters. This is done by creating a list of dictionaries with the yaml file. The optimisers used are ADADELTA,SGD,ADAM and ADAGRAD. For each optimiser 4 different configurations are created which totals into 16 models to be trained. As with the regression and classification model the inital parameters for each optimiser is set based on the default values shown in the Pytorch documentation and are increased/decreased accoordingly. 
+
+
+The __find_best_nn__ calls the __get_nn_config__ and a for loop is coded which passes each configuration into  __train_model function__  and trains the model based on the optmiser configuration.
+
+## Milestone 5 - Reuse the framework for another use-case with the Airbnb data
 &nbsp;
+
+
+_Reusing the framework_
+
+The __load_dataset function__  is used to get a new Airbnb  dataset where the label is the integer number of bedrooms. The previous lable(price_night) is added to the features.
+&nbsp;
+
+The model pipeline is then rerun (regression and neural network model). The __find_best__ model is then used to load the performance metrics to find the best regression and neural network model for the new used case.
 
 in order to fully automate the docker image build and container run, it was first required to set up Github actions on the repository. 
 
@@ -413,25 +442,7 @@ in order to fully automate the docker image build and container run, it was firs
 __Create repository__
 &nbsp;
 
-The first step is to go yo the actions section in the repository on github and create two GitHub secrets actions. 
 
-The first is a secret is called DOCKER_HUB_USERNAME which containes the name of the dockerhub account created and the second is called OCKER_HUB_ACCESS_TOKEN which contained a Personal Access Token (PAT) generated on dockerhub.
-
-__Set up the workflow__
-&nbsp;
-
-The next step is to set up the GitHub Actions workflow for building and pushing the image to Docker Hub. This is done by going to the actions section on the repo and selecting set up workflow which creates a Github actions work file contained in yaml format.
-
-&nbsp;
-
-__Define the workflow steps__
-&nbsp;
-
-The  last step includes setting up the build context within the yaml file. The contains all the information for docker hub to copy to files mentioned in the dockerfile then build an image and automatically push to docker hub.
-
-The last step is to commit the changes in the repo which would automatically start workflow. In order to make sure the workflow worked the image pushed on to docker hub was downloaded and a container was created and ran to ensure the script ran correctly.  A docker compose file which contains commands to self automate running containers was also created.
-
-&nbsp;
 
 __Refactoring__
 
