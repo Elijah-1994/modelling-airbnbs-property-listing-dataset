@@ -435,7 +435,7 @@ The __load_dataset function__  is used to get a new Airbnb  dataset where the la
 
 The model pipeline is then rerun (regression and neural network model). The __find_best__ model is then used to load the performance metrics to find the best regression and neural network model for the new used case.
 
-in order to fully automate the docker image build and container run, it was first required to set up Github actions on the repository. 
+in order to fully automate the docker image build and container run, it was first required to set up Github actions on the repository
 
 
 
