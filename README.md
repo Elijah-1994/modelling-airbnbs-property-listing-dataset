@@ -72,7 +72,7 @@ The __combine_description_strings__ function (Figure 4) passes the data frame wh
 * Creates a new data frame(df2) using df1 and calls the __dropna(subset)__ to remove the missing values.
 * Calls the __str.replace()__ function to replace the strings 'About this space' and other strings not needed and replaces this with ''.
 * Calls the __str.join()__ function to join the strings.
-* Calls the __to_list()__ function to combine the list items into the same string
+* Calls the __to_list()__ function to combine the list items into the same string.
 * returns df2.
 
 &nbsp;
