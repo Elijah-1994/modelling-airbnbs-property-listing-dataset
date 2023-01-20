@@ -464,12 +464,14 @@ Within the modelling.py script the __get_nn_config()__ function takes in the yam
 In order to set these parameters  into the model, the configuration file is passed into the model class upon initialisation. The order of the layers in the neural network should be the input layer then ReLU activation function then the hidden layer(ReLU set in between each hidden layer) then the output layer. In order to pass this configuration into the __nn.sequential__  method the __OrderedDict function__ is assigned to store these layers in the correct order and a for loop is coded to generate the hidden layers based on the width of the hidden layer and depth of the model(loaded from the config file) and the subsequent ReLU  layers . The ordered dict is then passed as an argument in the __nn.sequential__ method.
 
 
-<kbd>[Alt text](project_images/Figure_27_neural_network.PNG)<kbd>
+<kbd>![Alt text](project_images/Figure_27_neural_network.PNG)<kbd>
+
 *Figure 27 -  Neural Network configuration*
 
 &nbsp;
 
 <kbd>![Alt text](project_images/Figure_28_Neural_Network_Architecture.PNG)<kbd>
+
 *Figure 28 -  Visual representation of neural network*
 
 &nbsp;
@@ -477,9 +479,6 @@ In order to set these parameters  into the model, the configuration file is pass
 <ins>__Optimiser parameters__<ins>
 
 The configuration file is passed into the __train__ function and the __torch.optim.SGD__ method  is called to load in the optimiser parameters (lr).
-
-<kbd>![Alt text](project_images/Figure_25_Order_dict.PNG)<kbd>
-*Figure 25 -  method of creating model layers for neural network*
 
 &nbsp;
 
@@ -498,9 +497,13 @@ In order to obtain a full suite of performance metric for the model, the followi
 * Recording The time taken to train the model.
 * Recroding The average time taken to make a prediction.
 
-THe train function returns the model, hyperparameters and performance metrics and calls the __save_model__ function.
+The train function returns the model, hyperparameters and performance metrics and calls the __save_model__ function.
 
-*Figure 25 -  train function*
+&nbsp;
+
+<kbd>![Alt text](project_images/Figure_29_Train.PNG)<kbd>
+
+*Figure 29 -  train function*
 
 &nbsp;
 
@@ -532,7 +535,16 @@ The model pipeline is then rerun (regression and neural network models). The __f
 
 
 
+
+<kbd>![Alt text](project_images/Figure_31_prediction_regression.PNG)<kbd>
+
+*Figure 29 -  Prediction from sklearn SGD regression model*
+
+
 in order to fully automate the docker image build and container run, it was first required to set up Github actions on the repository
+
+
+
 
 
 
