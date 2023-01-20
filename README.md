@@ -77,7 +77,6 @@ The __combine_description_strings__ function (Figure 4) passes the data frame wh
 
 &nbsp;
 
-<kbd>![Alt text](project_images/Figure_4_combine_description_string_func.PNG)<kbd>
 ![Alt text](project_images/Figure_4_combine_description_string_func.PNG)
 
 *Figure 4 - Combine description string_function*
