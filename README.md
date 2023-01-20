@@ -77,7 +77,6 @@ The __combine_description_strings__ function (Figure 4) passes the data frame wh
 &nbsp;
 
 <kbd>![Alt text](project_images/Figure_4_combine_description_string_func.PNG)<kbd>
-
 *Figure 4 - Combine description string_function*
 
 <ins>__Feature values__</ins> 
@@ -224,10 +223,6 @@ In general ML models the features and labels dataset is split into Training,Test
 <kbd>![Alt text](project_images/Figure_12_CV_diagram.PNG)<kbd>
 Figure X - Cross validation diagram 
 
-&nbsp;
-
-<font size="10"> Figure X - Cross validation diagram</font> 
-<font size="20"> Figure X - Cross validation diagram</font> 
 
 &nbsp;
 
