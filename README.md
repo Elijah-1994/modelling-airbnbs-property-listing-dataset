@@ -234,92 +234,119 @@ The remaining paramEters called in the __GridSearchCV libary function__ is the e
 
 <ins>__hyperparameter selection__<ins>
 
-In general The first value/boolean statement/option to be tuned for each hyperparameter was chosen based on the defaults provided in the SKlearn manual. Then a range of values were tested by increasing/decreasing from the default value. In general each hyperparameter provided in the SKlearn manual was chosen to be tuned. After a few model runs the some hyperparameters were removed due to time constraints.
+The first value/boolean statement/option to be tuned for each hyperparameter is chosen based on the defaults provided in the SKlearn manual. Then a range of values were tested by increasing/decreasing from the default value. In general each hyperparameter provided in the SKlearn manual was chosen to be tuned. After a few model runs some hyperparameters were removed to decrease the model run time.
 
 &nbsp;
 
-_Save the model_
+<ins>__Save the model__<ins>
 
-The __save_model function__(Figure 14) takes in the model,best_parameters,performance_metrics, and a key work argument folder and saves the best model and its hyperparameters and performance metrics.
+The function(Figure 12) passes in the model,best_hyperparameters,performance_metrics, and a key work argument folder and saves the best model and its hyperparameters and performance metrics.
 
 &nbsp;
 
-![Alt text](project_images/Figure_14_Save_model.PNG)
-Figure 13 - Save model function
+<kbd>![Alt text](project_images/Figure_14_Save_model.PNG)<kbd>
+*Figure 13 - Save model function*
 
+&nbsp;
 
-_Beat the baseline regression model_
+<ins>__Beat the baseline regression model__<ins>
 
 In order to improve the baseline regression model, it was decided to apply different regression models provided by Sklearn. This includes decision trees, random forests, and gradient boosting. In order to run these addtional models they are first imported from Sklearn. The __evaluate_all_models function__ calls the __tune_regression_model_hyperparameters functions__ for each model scenario sequentially and the __save_model function__ is called to save the best model, hyperparameters and performance metrics.
 
 &nbsp;
 
-__find the best overall regression model__
+<kbd>![Alt text](project_images/Figure_14_evaluate_all_models.PNG)<kbd>
+*Figure X - evaluate_all_models function*
 
-In order to find the best overall regression model the performance metric(RMSE) needs to be compared against each model scenario. The __find_best_model function__ loads the RMSE for each model scenario and appends to a list, then a for loop is coded to find the lowest RMSE which will decide the best overall regression model and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE and was the best regression model for price night model scenario.
+&nbsp;
 
+<ins>__find the best overall regression model__<ins>
 
+In order to find the best overall regression model the performance metric(RMSE) needs to be compared against each model. The __find_best_model__ function loads the RMSE for each model and appends to a list, then a for loop is coded to find the lowest RMSE which will decide the best overall regression model and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE hence is the best regression model for price night model scenario.
+
+&nbsp;
+
+<kbd>![Alt text](project_images/Figure_14_find_best_model.PNG)<kbd>
+*Figure X - find_best_model function*
+
+&nbsp;
 ## Milestone 3 - Create a classification model 
 
 &nbsp;
 
-_simple classification model to predict the category of the airbnb properties_ 
+<ins>__simple classification model to predict the category of the airbnb properties__<ins> 
 
 In order run the simple classification model the __load_airbnb function__  is used to generate the features (tabular data) and label ('category').
 
-![Alt text](project_images/Figure_15_occurance_of_each_airbnb_category.PNG)
+&nbsp;
 
-Figure 15 - Occurance of each type of ainbnb property 
+<kbd>![Alt text](project_images/Figure_15_occurance_of_each_airbnb_category.PNG)<kbd>
+
+*Figure 15 - Occurrence of each type of ainbnb property* 
+
+&nbsp;
 
 in order to pass the data into the model, the label needs to be encoded to its numerical representation by using label Encoder. This is done by importing the __label Encoder function__
-from the Sklearn and calling the an instance of the __label Encoder function__ then the __transform function__ to encode the label data. As with the regression model the next step is then to split the data into test and train datasets. The model is then trained using Sklearn __Logistic regression class__. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the category of the air bnb apartments based on  training data set(Figure 16). The __np.random.seed function__ ensures(look it up in videos again)(FIGURE 11)
+from the Sklearn and calling an instance of the __label Encoder__ function then the __transform function__ to encode the label data. As with the regression model the next step is to split the data into test and train datasets. The parameter __random_state__ with the 
+__train_test_split__ function ensures that the data is shuffled before training.
+The model is then trained using Sklearn __Logistic regression class__. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the category of the air bnb apartments based on  training data set(Figure 16). 
 
+&nbsp;
 
-![Alt text](project_images/Figure_16_Logistic_model.PNG)
+<kbd>![Alt text](project_images/Figure_16_Logistic_model.PNG)<kbd>
 
-Figure 16 - Logistic regression model code
+*Figure 16 - Logistic regression model code*
 
-_Evaluation the regression model performance_
+&nbsp;
 
-SKlearn is then used to evaluate the key measures of performance of the logistic reg. This is done by importing the __precision, recall and f1_score functions__ from the Sklearn metrics. The __precision, recall and f1_score functions__ functions are then called to calculate the mean square error and the R2 score on the test data set (Figure 16. 
+<ins>__Evaluation of the classification model performance__<ins>
+
+SKlearn is then used to evaluate the key measures of performance of the logistic regression model. This is done by importing the __precision, recall and f1_score functions__ from the Sklearn metrics. The __precision, recall and f1_score__ functions are then called to calculate the precision,recall and f1 score on the test data set (Figure 16). 
 
 
 &nbsp;
 
 
-_Tune the hyperparameters of the model using methods from SKLearn_
+<ins>__Tune the hyperparameters of the model using methods from SKLearn__<ins>
 
-Just like the regression models the hyperparameters for the logistic regression needs to be tuned. The steps follow the same process as mentioned within the Milestone but instead the 
+Just like the regression models the hyperparameters for the logistic regression needs to be tuned. The steps follow the same process as mentioned within the Milestone  2 but instead the 
 code is wrapped in the __tune_classification_model_hyperparameters functions__(Figure 17).
 
 &nbsp;
 
 
-![Alt text](project_images/Figure_17_classification_tune.PNG)
-Figure 17 - __tune_classification_model_hyperparameters()__ function
-
-__save the classification model__
-
-Similar to the regression model in milstone 2 the logistic regression model is saved along with its hyperparameters and performance metrics.
-
-__beat the baseline classifcation model__
+<kbd>![Alt text](project_images/Figure_17_classification_tune.PNG)<kbd>
+*Figure 17 - tune_classification_model_hyperparameters function*
 
 &nbsp;
 
-Similar to the regression model in milstone 2 the performance of the baseline model can be improved by using different models provided by SKlearn. This is done by using the classification version of the decision trees, random forest and gradient boosting algorithms. The __evaluate_all_models__(Figure 18) calls the __tune_classification_model_hyperparameters functions__ for each scenario sequentially and returns the best model, hyperparameters and performance metrics and the _Save_model function__ saves this data accordingly.
+<ins>___save the classification model__<ins>_
+
+the __save_model__ function is called and saves the logistic regression model  along with its hyperparameters and performance metrics.
+
+&nbsp;
+
+<ins>__beat the baseline classification model__<ins>
+
+The performance of the baseline model can be improved by using different models provided by SKlearn. This is done by using the classification versions of the decision trees, random forest and gradient boosting model algorithms. The __evaluate_all_models__(Figure 18) calls the __tune_classification_model_hyperparameters__ function for each model sequentially and returns the best model, hyperparameters and performance metrics and the __save_model__ function saves this data accordingly.
+
+&nbsp;
+
+<kbd>![Alt text](project_images/Figure_18_evaluate_all_models.PNG)<kbd>
+*Figure 18 - evaluate_all_models function*
 
 
-![Alt text](project_images/Figure_18_evaluate_all_models.PNG)
-Figure 18 - __evaluate_all_models__ function
+<ins>__Find the overall classification model__<ins>
 
 
-_Find the overall classification model_
+The __find_best_model__ function is adapted to take in a keyword argument called task_folder. This is to ensure the function finds the correct models (i.e regression or classification). 
+The precision score was decided as the performance metric to find the best model. The __find_best_model__ function loads the precision score for each model scenario and appends to a list, then a for loop is coded to find the highest precision score and then returns the model, hyperparameters and performance metrics. The random forest model produced the highest precision score and was the best classification model for airbnb property category  scenario.
 
-The __find_best_model function__ is adapted to take in a keyword argument called task_folder. This is to ensure the function finds the correct models (i.e regression or classification). 
-The precision score was decided as the performance metric to find the best model. The __find_best_model function__ loads the precision for each model scenario and appends to a list, then a for loop is coded to find the highest precision score and then returns the model, hyperparameters and performance metrics. The decision tree  algorithm contained produced the highest precision score and was the best regression model for airbnb property category  scenario.
 
-Figure 19 - _Find_best_model_function_
-![Alt text](project_images/Figure_19_Find_best_model.PNG)
+<kbd>![Alt text](project_images/Figure_19_Find_best_model.PNG)<kbd>
+Figure 19 - find_best_model function
+
+&nbsp;
 
 ## Milestone 4 - Create a configurable neural network
 
