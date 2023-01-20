@@ -63,7 +63,7 @@ Missing values in the numerical data will cause issues when trying to train the 
 
 *Figure 3 - Sum of NaN values in the df1*
 
-</ins>__Description strings__</ins>
+<ins>__Description strings__</ins>
 
 &nbsp;
 The __combine_description_strings__ function (Figure 4) passes the data frame which is returned from the  __remove_rows_with_missing_ratings__ function and processes and cleans the strings within the description column. The function:
@@ -80,7 +80,7 @@ The __combine_description_strings__ function (Figure 4) passes the data frame wh
 
 *Figure 4 - Combine description string_function*
 
-</ins>__Feature values__</ins> 
+<ins>__Feature values__</ins> 
 
 The __set_default_feature_values__ function (Figure 5) passes the data frame which is returned from the __combine_description_strings__ function 
 and calls the __fillna()__ function which replaces the missing values in the "guests", "beds", "bathrooms" and "bedrooms" columns with the value 1. the function returns a new data frame(df3).
@@ -93,7 +93,7 @@ and calls the __fillna()__ function which replaces the missing values in the "gu
 
 &nbsp;
 
-</ins>__clean tabular data__</ins>
+<ins>__clean tabular data__</ins>
 
 The functions mentioned above are wrapped into the __clean_tabular_data__(Figure 6) function hence when called a new df is created with the cleaned tabular data then the __to_csv__ function is called to create a new csv labeled 'clean_tabular_data.csv' from the new df.  
 
@@ -104,13 +104,13 @@ The functions mentioned above are wrapped into the __clean_tabular_data__(Figure
 
 &nbsp;
 
-</ins>__Format Image Data__</ins>
+<ins>__Format Image Data__</ins>
 
 The prepare prepare_image_data.py script contains the code which processes the image data. The images are saved in a folder which is named as the UUID of the listing which it contains the images for.
 
 &nbsp;
 
-</ins>__downloadDirectoryFroms3 function__</ins> 
+<ins>__downloadDirectoryFroms3 function__</ins> 
 
 &nbsp;
 
@@ -120,7 +120,7 @@ The __downloadDirectoryFroms3__ function (Figure 7) takes the aws S3 bucket name
 
 *Figure 7 - downloadDirectoryFroms3 function*
 
-</ins>__create_directory function__</ins> 
+<ins>__create_directory function__</ins> 
 
 The __create_directory function__ (Figure 8) creates a new directory for the images that will be processed.The function returns the path of the directory.
 
@@ -131,7 +131,7 @@ The __create_directory function__ (Figure 8) creates a new directory for the ima
 
 &nbsp;
 
-</ins>__calculate_smallest_image_height function__</ins>
+<ins>__calculate_smallest_image_height function__</ins>
 
 &nbsp;The function (Figure 9) takes in the path returned from the __create_directory__ function and for loop is coded which iterates through each image and calculates the images height and appends the height to the image_height list.The smallest image height is calculated using the __min__ function. The function returns the smallest image height.
 
@@ -144,7 +144,7 @@ The __create_directory function__ (Figure 8) creates a new directory for the ima
 
 &nbsp;
 
-</ins>_delete_image_by_mode_</ins>
+<ins>_delete_image_by_mode_</ins>
 
 The function (Figure 9) takes in the  image mode (set to RBG), the file path of the resized image and the image and codes a for loop which check if the image mode of the image is not set to RBG and deletes the image file path if this is the case.
 
@@ -154,7 +154,7 @@ The function (Figure 9) takes in the  image mode (set to RBG), the file path of 
 
 &nbsp;
 
-</ins>__resize_images function__</ins>
+<ins>__resize_images function__</ins>
 
 The function takes in the path returned from the __create_directory__ function and codes a for loop which iterates through the images and calls the __calculate_smallest_image_height__ function to return the smallest image height (base_height) then calculates the image aspect ratio (width/height) and resizes the image height based on the ratio of the smallest image height (base_height*aspect_ratio) and saves the image in a directory located in the processed_images folder. This function is called  within the __name__ == "__main__"  block.
 
@@ -164,7 +164,7 @@ The function takes in the path returned from the __create_directory__ function a
 
 &nbsp;
 
-</ins>__get data in the right format__</ins>
+<ins>__get data in the right format__</ins>
 
 In order to process the data into model, the data must be split into features and labels. The features represent the input variables (x) and the label (y) represent the thing that is being predicted. As the models will contain features and a labels,the framework will consist entirely of   supervised learning algorithms.
 
