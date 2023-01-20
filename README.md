@@ -38,23 +38,25 @@ The first step is to download and save the images and tabular data folder. The t
 &nbsp;Pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool,built on top of the Python programming language. In order to
 process the tabular data pandas was installed (pip install pandas). 
 
-The tabular_data.py script contains the functions coded in order to clean and process the tabular data. The  next step is to code __read_csv()__ function which reads in the tabular data csv and converts it to a pandas data frame(df). The __copy()__ function is then called to create a copy of the df. This copy of the original df can now be cleaned and manipulated 
+The tabular_data.py script contains the functions coded in order to clean and process the tabular data. The  next step is to code __read_csv()__ function which reads in the tabular data csv and converts it to a pandas data frame(df). The __copy()__ function is then called to create a copy of the df. This copy of the original df can now be cleaned and manipulated. 
 
-<u>__missing ratings__</u> 
+&nbsp;<ins>__missing ratings__</ins> 
 &nbsp;
 
-The __isna().sum()__ function is used to calculate the sum of NaN values in the pd data frame. Figure 1 belows shows that the rating columns contained missing values. 
+The __isna().sum()__ function is used to calculate the sum of NaN (missing) values in the pd data frame. Figure 1 belows shows that the sum of the missing values in each column. 
+
+&nbsp;
 
 |![NaN values count](project_images/Figure_1_sum_of_NaN_values_in_DF.PNG)|
 
 
-*Figure 1 - Sum of NaN values in the pd data frame*
+*Figure 1 - Sum of the missing values in data frame*
 
-This would cause problems when trying to train the machine learning models therefore, a function was coded (figure 2) which passes the df as an argument and creates a new data frame (df1) with the __dropna(subset)__. The ratings columns now contain 0 missing values as shown in Figure 3 below. The function returns the new data frame.
+Missing values in the numerical data will cause issues when trying to train the machine learning models therefore, a function is coded (figure 2) which passes the df as an argument and creates a new data frame (df1) with the __dropna(subset)__ function called. The ratings columns now contain 0 missing values as shown in Figure 2 below. The function returns the new data frame.
 
-![Alt text](project_images/Figure_2_remove_rows_with_missing_ratings_func.PNG)
+|![Alt text](project_images/Figure_2_remove_rows_with_missing_ratings_func.PNG)|
 
-*Figure 2 - Remove rows with missing ratings function
+*Figure 2 - Remove rows with missing ratings function*
 
 
 ![Alt text](project_images/Figure_3_sum_of_NaN_values_in_DF.PNG)
