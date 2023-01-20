@@ -180,57 +180,63 @@ For the first batch of modelling, the features are the numerical tabular data an
 ## Milestone 2 - Create a regresion model
 &nbsp;
 
-_simple regression model to predict the nightly cost of each listing_ 
+<ins>__simple regression model to predict the nightly cost of each listing__
+</ins> 
 
-The modelling.py script was created an contains the main code  for the various models. The first step is create a simple regression model to predict the nightly cost  of each listing. the __load_airbnb function_ is imported from the tabular_data.py which contains the df for the  features (numerical data - nightly cost) and label (nightly cost). This model is trained using the SKlearn __Stochastic Gradient Descent (SGD)Regressor class__. The __test split function__  is used to split the data into training and testing sets. The training set is used to train the model and the test set is used to provide an unbiased evaluation of a final model fit on the training data set. SGD model is imported from Sklearn and The next step to create a variable which calls the __SGDRegresssor__ class. The __fit()__ function is  then called to fit the training data with SGD. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the nightly cost based on the fitted  training data set. The __np.random.seed function__ ensures(look it up in videos again)(FIGURE 11)
+The modelling.py script contains the main code for training the various models. The first step is create a simple regression model to predict the nightly cost  of each listing. the __load_airbnb__ function is imported from the tabular_data.py which contains the df for the  features (numerical data minus nightly cost) and label (nightly cost). This model is trained using the SKlearn __Stochastic Gradient Descent (SGD)Regressor class__. The __test split function__  is used to split the data into training and testing sets. The __randn__ function randomises the data in the features and label dataset.The training set is used to train the model and the test set is used to provide an unbiased evaluation of the final model fit on the training data set. SGD model is imported from Sklearn and the next step to create a variable which calls the __SGDRegresssor__ class. The __fit()__ function is  then called to fit the training data with SGD. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the nightly cost based on the fitted  training data set. The __np.random.seed__ function ensures that the ranpseudo-random numbers generated within NumPy __randint__ function can be stored, hence the model results can be repeated after each run. 
 
 
+<ins>__Evaluation the regression model performance__<ins>
+
+SKlearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the Sklearn metrics. The __mean_square_error__ and __r2score__ functions and are then call to calculate the mean square error and the R2 score on the test data set (Figure 11). 
 
 
-_Evaluation the regression model performance_
-
-SKlearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the Sklearn metrics. The __mean_square_error__ and __r2score__ functions are then called to calculate the mean square error and the R2 score on the trained data set (Figure 11). 
-
-![Alt text](project_images/Figure_11_SGD_model.PNG)
+<kbd>![Alt text](project_images/Figure_11_SGD_model.PNG)<kbd>
 
 Figure 11 - SGD model code
 
-_Evaluation the regression model performance_
+&nbsp;
+
+<ins>__Evaluation the regression model performance__<ins>
+
 &nbsp;
 
 
+<ins>_Tune the hyperparameters of the model using methods from SKLearn_<ins>
 
-_Tune the hyperparameters of the model using methods from SKLearn_
+&nbsp;
 
-In order to tune the accuracy of the model, the hyperparameters need to be tuned. This is done by implementing sklearns __GridSearchCV libary function__. The __GridSearchCV libary function__ helps loop through predefined hyperparameters and fits the model on the training set. The  __tune_regression_model_hyperparameters functions__(Figure 12) passes the model, X,y,X_test,y_test and a dictionary of the hyperparameters to be tuned and calls the __GridSearchCV libary function__ which loops through the dictionary of hyperparameters then the __fit function__ fits the model, then the __predict function__ makes a prediction on the test data set. The __mean_squared_error function__ calculates the mean squared error bestween the y_test and the predictions. The function returns the the best model, the best model hyperparameters and the hyperparameters.
+In order to tune the accuracy of the model, the hyperparameters need to be tuned. This is done by implementing SKlearns __GridSearchCV libary__ function. The __GridSearchCV libary__ function helps loop through predefined hyperparameters and fits the model on the training set. The  __tune_regression_model_hyperparameters__ function(Figure 12) passes the model, X,y,X_test,y_test and a dictionary of the hyperparameters to be tuned and calls the __GridSearchCV libary function__ which loops through the dictionary of hyperparameters then the __fit__ function fits the model, then the __predict function__ makes a prediction on the test data set. The __mean_squared_error__ function calculates the mean squared error between the y_test and the predictions. The function returns the the best model, the best model hyperparameters and the performance metrics.
+
+&nbsp;
+<kbd>![Alt text](project_images/Figure_13_Regression_Tune.PNG)<kbd>
+
+*Figure X - tune_regression_model_hyperparameters function*
+
+
+
+&nbsp;
+
+<ins>__Cross validation__<ins>
+
+In general ML models the features and labels dataset is split into Training,Test and validation sets, however __GridSearchCV libary__ function a resampling method (cv) that uses different portions of the data to test and train a model on different iterations.In SKlearn the model is trained using k-1 of the folds as training data and then then resulting model is validated on the remaining part of the model (Figure X).
+&nbsp;
 
 ![Alt text](project_images/Figure_12_CV_diagram.PNG)
-Figure 12 - Cross validation diagram
+Figure X - Cross validation diagram
 
+&nbsp;
+
+<ins>__Remaining GridSearchCV parameters__<ins>
+
+The remaining paramEters called in the __GridSearchCV libary function__ is the estimator which is the model, n_jobs (set to -1) which means all the processors are being used (this reduces the run time of the tuning process) and the verbose is set to 1 (hence no progress metrics are shown).
 
 &nbsp;
 
-_Cross validation_
-In general ML models the features dataset would be split into Training,Test and validation sets, however __GridSearchCV libary function__ contains a parameter called cv which stands for cross validation which  is a resampling method that uses different portions of the data to test and train a model on different iterations.In SKlearn the model is trained using k-1 of the folds as training data and then then resulting model is validated on the remaining part of the model(Figure 12).
-&nbsp;
-
-&nbsp;
-![Alt text](project_images/Figure_13_Regression_Tune.PNG)
-
-Figure 13 - Cross validation diagram
-
-_Remaining GridSearchCV parameters_
-
-The remaining paramters called in the __GridSearchCV libary function__ is the estimator which is the model, n_jobs which is set to -1 which means all proccessors are being used (this reduces the run time of the tuning proccess) and the verbose is set to 1 (hence no progress metrics are shown)
-
-&nbsp;
-&nbsp;
-
-_hyperparameter selection_
+<ins>__hyperparameter selection__<ins>
 
 In general The first value/boolean statement/option to be tuned for each hyperparameter was chosen based on the defaults provided in the SKlearn manual. Then a range of values were tested by increasing/decreasing from the default value. In general each hyperparameter provided in the SKlearn manual was chosen to be tuned. After a few model runs the some hyperparameters were removed due to time constraints.
 
-&nbsp;
 &nbsp;
 
 _Save the model_
