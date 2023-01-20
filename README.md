@@ -33,7 +33,7 @@ The first step is to download and save the images and tabular data folder. The t
 * bedrooms: The number of bedrooms in the listing
 * Unnamed: 19: empty column
   
-<u>__Pandas__</u>
+<ins>__Pandas__</ins>
 
 &nbsp;Pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool,built on top of the Python programming language. In order to
 process the tabular data pandas was installed (pip install pandas). 
