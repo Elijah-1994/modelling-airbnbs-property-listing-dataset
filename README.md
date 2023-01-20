@@ -59,7 +59,7 @@ Missing values in the numerical data will cause issues when trying to train the 
 *Figure 2 - Remove rows with missing ratings function*
 
 
-<kbd>[Alt text](project_images/Figure_3_sum_of_NaN_values_in_DF.PNG)<kbd>
+<kbd>![Alt text](project_images/Figure_3_sum_of_NaN_values_in_DF.PNG)<kbd>
 
 *Figure 3 - Sum of NaN values in the pd data frame*
 
