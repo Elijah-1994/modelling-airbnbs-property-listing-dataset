@@ -48,19 +48,15 @@ The __isna().sum()__ function is used to calculate the sum of NaN (missing) valu
 &nbsp;
 
 <kbd>![NaN values count](project_images/Figure_1_sum_of_NaN_values_in_DF.PNG)<kbd>
-
-
-*Figure 1 - Sum of the missing values in data frame*
+Figure 1 - Sum of the missing values in data frame
 
 Missing values in the numerical data will cause issues when trying to train the machine learning models therefore, a function is coded (Figure 2) which passes the df as an argument and creates a new data frame (df1) with the __dropna(subset)__ function called. The ratings columns now contain 0 missing values as shown in Figure 3 below. The function returns the new data frame.
 
 <kbd>![Alt text](project_images/Figure_2_remove_rows_with_missing_ratings_func.PNG)<kbd>
-
 *Figure 2 - Remove rows with missing ratings function*
 
 
 <kbd>![Alt text](project_images/Figure_3_sum_of_NaN_values_in_DF.PNG)<kbd>
-
 *Figure 3 - Sum of NaN values in the df1*
 
 <ins>__Description strings__</ins>
@@ -87,7 +83,6 @@ and calls the __fillna()__ function which replaces the missing values in the "gu
 &nbsp;
 
 <kbd>![Alt text](project_images/Figure_5_set_default_features_values_func.PNG)<kbd>
-
 *Figure 5 - Set default features values function*
 
 &nbsp;
