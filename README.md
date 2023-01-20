@@ -186,12 +186,12 @@ The modelling.py script contains the main code for training the various models. 
 
 <ins>__Evaluation the regression model performance__<ins>
 
-SKlearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the Sklearn metrics. The __mean_square_error__ and __r2score__ functions and are then call to calculate the mean square error and the R2 score on the test data set (Figure 11). 
+SKlearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the Sklearn metrics. The __mean_square_error__ and __r2score__ functions and are then call to calculate the mean square error and the R2 score on the test data set (Figure 13). 
 
 
 <kbd>![Alt text](project_images/Figure_11_SGD_model.PNG)<kbd>
 
-Figure 11 - SGD model code
+Figure 13 - SGD model code
 
 &nbsp;
 
@@ -204,31 +204,30 @@ Figure 11 - SGD model code
 
 &nbsp;
 
-In order to tune the accuracy of the model, the hyperparameters need to be tuned. This is done by implementing SKlearns __GridSearchCV libary__ function. The __GridSearchCV libary__ function helps loop through predefined hyperparameters and fits the model on the training set. The  __tune_regression_model_hyperparameters__ function(Figure 12) passes the model, X,y,X_test,y_test and a dictionary of the hyperparameters to be tuned and calls the __GridSearchCV libary function__ which loops through the dictionary of hyperparameters then the __fit__ function fits the model, then the __predict function__ makes a prediction on the test data set. The __mean_squared_error__ function calculates the mean squared error between the y_test and the predictions. The function returns the the best model, the best model hyperparameters and the performance metrics.
+In order to tune the accuracy of the model, the hyperparameters need to be tuned. This is done by implementing SKlearns __GridSearchCV libary__ function. The __GridSearchCV libary__ function helps loop through predefined hyperparameters and fits the model on the training set. The  __tune_regression_model_hyperparameters__ function(Figure 14) passes the model, X,y,X_test,y_test and a dictionary of the hyperparameters to be tuned and calls the __GridSearchCV libary function__ which loops through the dictionary of hyperparameters then the __fit__ function fits the model, then the __predict function__ makes a prediction on the test data set. The __mean_squared_error__ function calculates the mean squared error between the y_test and the predictions. The function returns the the best model, the best model hyperparameters and the performance metrics.
 
 &nbsp;
-<kbd>![Alt text](project_images/Figure_13_Regression_Tune.PNG)<kbd>
+<kbd>![Alt text](project_images/Figure_14_regression_tuning.PNG)<kbd>
 
-*Figure X - tune_regression_model_hyperparameters function*
-
-
+*Figure 14 - tune_regression_model_hyperparameters function*
 
 &nbsp;
 
 <ins>__Cross validation__<ins>
 
-In general ML models the features and labels dataset is split into Training,Test and validation sets, however __GridSearchCV libary__ function a resampling method (cv) that uses different portions of the data to test and train a model on different iterations.In SKlearn the model is trained using k-1 of the folds as training data and then then resulting model is validated on the remaining part of the model (Figure X).
+In general ML models the features and labels dataset is split into Training,Test and validation sets, however __GridSearchCV libary__ function a resampling method (cv) that uses different portions of the data to test and train a model on different iterations.In SKlearn the model is trained using k-1 of the folds as training data and then then resulting model is validated on the remaining part of the model (Figure 15).
 &nbsp;
 
-<kbd>![Alt text](project_images/Figure_12_CV_diagram.PNG)<kbd>
-Figure X - Cross validation diagram 
+<kbd>![Alt text](project_images/Figure_15_CV_diagram.PNG)<kbd>
+
+*Figure 15 - Cross validation diagram*
 
 
 &nbsp;
 
 <ins>__Remaining GridSearchCV parameters__<ins>
 
-The remaining paramEters called in the __GridSearchCV libary function__ is the estimator which is the model, n_jobs (set to -1) which means all the processors are being used (this reduces the run time of the tuning process) and the verbose is set to 1 (hence no progress metrics are shown).
+The remaining paramEters called in the __GridSearchCV libary__ class is the estimator which is the model, n_jobs (set to -1) which means all the processors are being used (this reduces the run time of the tuning process) and the verbose is set to 1 (hence no progress metrics are shown).
 
 &nbsp;
 
@@ -240,34 +239,37 @@ The first value/boolean statement/option to be tuned for each hyperparameter is 
 
 <ins>__Save the model__<ins>
 
-The function(Figure 12) passes in the model,best_hyperparameters,performance_metrics, and a key work argument folder and saves the best model and its hyperparameters and performance metrics.
+The function(Figure 16) passes in the model,best_hyperparameters,performance_metrics, and a key work argument folder and saves the best model and its hyperparameters and performance metrics.
 
 &nbsp;
 
-<kbd>![Alt text](project_images/Figure_14_Save_model.PNG)<kbd>
-*Figure 13 - Save model function*
+<kbd>[Alt text](project_images/Figure_16_Save_model.PNG)<kbd>
+
+*Figure 16 - Save model function*
 
 &nbsp;
 
 <ins>__Beat the baseline regression model__<ins>
 
-In order to improve the baseline regression model, it was decided to apply different regression models provided by Sklearn. This includes decision trees, random forests, and gradient boosting. In order to run these addtional models they are first imported from Sklearn. The __evaluate_all_models function__ calls the __tune_regression_model_hyperparameters functions__ for each model scenario sequentially and the __save_model function__ is called to save the best model, hyperparameters and performance metrics.
+In order to improve the baseline regression model, it was decided to apply different regression models provided by Sklearn. This includes decision trees, random forests, and gradient boosting. In order to run these additional models they are first imported from Sklearn. The __evaluate_all_models__ function (Figure 17) calls the __tune_regression_model_hyperparameters functions__ for each model scenario sequentially and the __save_model__ function is called to save the best model, hyperparameters and performance metrics.
 
 &nbsp;
 
-<kbd>![Alt text](project_images/Figure_14_evaluate_all_models.PNG)<kbd>
-*Figure X - evaluate_all_models function*
+<kbd>![Alt text](project_images/Figure_17_evaluate_all_models.PNG)<kbd>
+
+*Figure 17 - evaluate_all_models function*
 
 &nbsp;
 
 <ins>__find the best overall regression model__<ins>
 
-In order to find the best overall regression model the performance metric(RMSE) needs to be compared against each model. The __find_best_model__ function loads the RMSE for each model and appends to a list, then a for loop is coded to find the lowest RMSE which will decide the best overall regression model and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE hence is the best regression model for price night model scenario.
+In order to find the best overall regression model the performance metric(RMSE) needs to be compared against each model. The __find_best_model__ function (Figure (Figure 18) loads the RMSE for each model and appends to a list, then a for loop is coded to find the lowest RMSE which will decide the best overall regression model and then returns the model, hyperparameters and performance metrics. The gradient boosting  algorithm contained the lowest RMSE hence is the best regression model for price night model scenario.
 
 &nbsp;
 
-<kbd>![Alt text](project_images/Figure_14_find_best_model.PNG)<kbd>
-*Figure X - find_best_model function*
+<kbd>![Alt text](project_images/Figure_18_evaluate_all_models.PNG)<kbd>
+
+*Figure 18 - find_best_model function*
 
 &nbsp;
 ## Milestone 3 - Create a classification model 
