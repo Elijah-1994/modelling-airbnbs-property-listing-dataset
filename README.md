@@ -115,7 +115,7 @@ The prepare prepare_image_data.py script contains the code which processes the i
 
 The __downloadDirectoryFroms3__ function (Figure 7) takes the aws S3 bucket name and Remote directory name as an argument  and downloads the images from the 'airbnb-property-listings bucket and saves into to the images folder.
 
-<kbd>[Alt text](project_images/Figure_7_downloadDirectoryFroms3.PNG)<kbd>
+<kbd>![Alt text](project_images/Figure_7_downloadDirectoryFroms3.PNG)<kbd>
 
 *Figure 7 - downloadDirectoryFroms3 function*
 
@@ -243,7 +243,7 @@ The function(Figure 16) passes in the model,best_hyperparameters,performance_met
 
 &nbsp;
 
-<kbd>[Alt text](project_images/Figure_16_Save_model.PNG)<kbd>
+<kbd>![Alt text](project_images/Figure_16_Save_model.PNG)<kbd>
 
 *Figure 16 - Save model function*
 
