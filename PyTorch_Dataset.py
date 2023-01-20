@@ -52,7 +52,12 @@ dataloader = {
     ),
 }
 
-def train(model, epochs=10):
+def train(model, epochs=1):
+    '''
+        This function provides the loop to train the neural network based on the optimizer and its parameters, get a prediction,
+        and calculate the performance metrics of the trained model.
+
+    '''   
     optimiser = torch.optim.SGD(model.parameters(),lr=0.001)
     writer = SummaryWriter()
     batch_idx=0

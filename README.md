@@ -343,6 +343,8 @@ The performance of the baseline model can be improved by using different models 
 The __find_best_model__ function is adapted to take in a keyword argument called task_folder. This is to ensure the function finds the correct models (i.e regression or classification). 
 The precision score was decided as the performance metric to find the best model. The __find_best_model__ function loads the precision score for each model scenario and appends to a list, then a for loop is coded to find the highest precision score and then returns the model, hyperparameters and performance metrics. The random forest model produced the highest precision score and was the best classification model for airbnb property category scenario.
 
+&nbsp;
+
 ## Milestone 4 - Create a configurable neural network
 
 <ins>__define first neural network model__<ins>
@@ -378,14 +380,15 @@ The method returns the number of samples in the dataset.
 
 &nbsp;
 
-<kbd>![Alt text](project_images/Figure_20_Class.PNG)<kbd>
-*Figure 20 - class AirbnbNightlyPriceImageDataset*
+<kbd>![Alt text](project_images/Figure_22_Class.PNG)<kbd>
+
+*Figure 22 - class AirbnbNightlyPriceImageDataset*
 
 &nbsp;
 
 <ins>__Dataloader__<ins>
 
-Dataloader batches the data so that it can be easily consumed by neural network. The data loader(Figure 21) is represented as a dictionary and the __torch.utils.data.random_split()__ function is called to split the data into train,test and validation data sets and this is assigned in the dataloader. The arguments defined in the data_loader are detailed below: 
+Dataloader batches the data so that it can be easily consumed by neural network. The data loader(Figure 23) is represented as a dictionary and the __torch.utils.data.random_split()__ function is called to split the data into train,test and validation data sets and this is assigned in the dataloader. The arguments defined in the data_loader are detailed below: 
 
 
 * Batch_size - sets the size of the batches.
@@ -396,8 +399,9 @@ Dataloader batches the data so that it can be easily consumed by neural network.
 &nbsp;
 
 
-<kbd>![Alt text](project_images/Figure_21_Data_Loader.PNG)<kbd>
-*Figure 21 - Dataloader*
+<kbd>![Alt text](project_images/Figure_23_Data_Loader.PNG)<kbd>
+
+*Figure 23 - Dataloader*
 
 &nbsp;
 
@@ -407,36 +411,36 @@ Dataloader batches the data so that it can be easily consumed by neural network.
 
 The neural network is defined by subclassing the nn.Module, and initialising the neural network layers in the __init__ methpd. The input and output layers are defined by calling the __torch.nn.Linear()__ method. The __nn.ReLU()__ method is placed in between the input and the output layer. The ReLU is is an activation function that introduces the property of non-linearity to a deep learning model and solves the vanishing gradients issue. The ReLU method replaces all the negative values with 0 and all the non-negative left unchanged. These layers are placed within __torch.nn.Sequential class__ which is a sequential container which can run the layers sequentially. The __forward__ method will pass the data into the computation graph (neural network). This will represent our feed-forward algorithm.
 
-
-![Alt text](project_images/Figure_22_Data_Loader.PNG)
-Figure 21 - class neural network
+&nbsp;
 
 <ins>_Create the training loop and train the model to completion_<ins>
 
 <ins>_train function_<ins>
 
-The __train__ function passes the model and the epoch for each iteration and a for loop is coded which splits the features and labels in each  training batch then calls the __to.torch()__ method to convert to the datatype from float 64 into float 32. A prediction is then made by passing the features into the __forward__ method in the neural network class and the loses is calculated and optimised as detailed in the paragraph below. The model is then trained for the number of epochs(Figure 22). The __summary writter function__ method is called in the train loop in order to create a graphical representation of optmised loss function. The loops then loads the data in the validation data set and repeats the process of the training dataset.
+The __train__ function passes the model and the epoch for each iteration and a for loop is coded which splits the features and labels in each  training batch then calls the __to.torch()__ method to convert to the datatype from float 64 into float 32. A prediction is then made by passing the features into the __forward__ method in the neural network class and the loses is calculated and optimised as detailed in the paragraph below. The model is then trained for the number of epochs(Figure 24). The __summary writter function__ method is called in the train loop in order to create a graphical representation of optmised loss function. The loops then loads the data in the validation data set and repeats the process of the training dataset.
 
 &nbsp;
+
+<kbd>![Alt text](project_images/Figure_24_Train.PNG)<kbd>
+
+*Figure 24 - Train function
+
 
 <ins>__loss function__<ins>
 
 The loss function within the training loop is calculated between the prediction and label using the __F.mse_loss__ function. The __optimiser.zero_grad()__ function is called before the loss function, because the __optimiser.zero_grad()__ function sets the gradients to zero during each batch loop before initiating backpropragation. This ensures that losses decrease during each batch run. The __backward()__ function is called after the loss function which computes backward propagation(calculates the gradients) and the __optimiser.step()__ function is then called which updates the weights within the gradients.
 
-<kbd>![Alt text](project_images/Figure_22_Data_Loader.PNG)<kbd>
-*Figure 22 -  Train function*
-
 
 <ins>__Visualise the metrics__<ins>
 
 
-&nbsp;The __writer.add_scalar__ function saves the loss data and outputs into graphical format in tensor board as shown in Figure X below.
+&nbsp;The __writer.add_scalar__ function saves the loss data and outputs into graphical format in tensor board as shown in Figure 25 and Figure 26 below.
 
 
-Figure 23 -  Train graph metrics
+Figure 25 -  Train graph metrics
 
 
-Figure 24 -  validation graph metrics
+Figure 26 -  validation graph metrics
 
 
 &nbsp;
@@ -460,8 +464,13 @@ Within the modelling.py script the __get_nn_config()__ function takes in the yam
 In order to set these parameters  into the model, the configuration file is passed into the model class upon initialisation. The order of the layers in the neural network should be the input layer then ReLU activation function then the hidden layer(ReLU set in between each hidden layer) then the output layer. In order to pass this configuration into the __nn.sequential__  method the __OrderedDict function__ is assigned to store these layers in the correct order and a for loop is coded to generate the hidden layers based on the width of the hidden layer and depth of the model(loaded from the config file) and the subsequent ReLU  layers . The ordered dict is then passed as an argument in the __nn.sequential__ method.
 
 
-<kbd>![Alt text](project_images/Figure_21_Neural_Network_Architecture.PNG)<kbd>
-*Figure 22 -  Neural Network configuration*
+<kbd>[Alt text](project_images/Figure_27_neural_network.PNG)<kbd>
+*Figure 27 -  Neural Network configuration*
+
+&nbsp;
+
+<kbd>![Alt text](project_images/Figure_28_Neural_Network_Architecture.PNG)<kbd>
+*Figure 28 -  Visual representation of neural network*
 
 &nbsp;
 
