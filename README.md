@@ -47,7 +47,7 @@ The __isna().sum()__ function is used to calculate the sum of NaN (missing) valu
 
 &nbsp;
 
-|![NaN values count](project_images/Figure_1_sum_of_NaN_values_in_DF.PNG)|
+<kbd>![NaN values count](project_images/Figure_1_sum_of_NaN_values_in_DF.PNG)<kbd>
 
 
 *Figure 1 - Sum of the missing values in data frame*
