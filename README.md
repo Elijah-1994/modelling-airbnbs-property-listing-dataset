@@ -180,8 +180,7 @@ For the first batch of modelling, the features are the numerical tabular data an
 ## Milestone 2 - Create a regresion model
 &nbsp;
 
-<ins>__simple regression model to predict the nightly cost of each listing__
-</ins> 
+<ins>__simple regression model to predict the nightly cost of each listing__</ins> 
 
 The modelling.py script contains the main code for training the various models. The first step is create a simple regression model to predict the nightly cost  of each listing. the __load_airbnb__ function is imported from the tabular_data.py which contains the df for the  features (numerical data minus nightly cost) and label (nightly cost). This model is trained using the SKlearn __Stochastic Gradient Descent (SGD)Regressor class__. The __test split function__  is used to split the data into training and testing sets. The __randn__ function randomises the data in the features and label dataset.The training set is used to train the model and the test set is used to provide an unbiased evaluation of the final model fit on the training data set. SGD model is imported from Sklearn and the next step to create a variable which calls the __SGDRegresssor__ class. The __fit()__ function is  then called to fit the training data with SGD. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the nightly cost based on the fitted  training data set. The __np.random.seed__ function ensures that the ranpseudo-random numbers generated within NumPy __randint__ function can be stored, hence the model results can be repeated after each run. 
 
