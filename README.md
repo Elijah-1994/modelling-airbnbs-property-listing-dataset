@@ -100,56 +100,81 @@ The functions mentioned above are wrapped into the __clean_tabular_data__(Figure
 <kbd>![Alt text](project_images/Figure_6_clean_tabular_csv_func.PNG)<kbd>
 ![Alt text](project_images/Figure_6_clean_tabular_csv_func_pt2.PNG)<kbd>
 
-*Figure 6 - clean tabular data function 
+*Figure 6 - clean tabular data function* 
 
 &nbsp;
 
-__Format Image Data__ 
+</ins>__Format Image Data__</ins>
 
 The prepare prepare_image_data.py script contains the code which processes the image data. The images are saved in a folder which is named as the UUID of the listing which it contains the images for.
 
-_downloadDirectoryFroms3 function_ 
+&nbsp;
 
-The __downloadDirectoryFroms3__ (Figure 7) takes the aws S3 bucket name and Remote directory name as an argument  and downloads the images from the 'airbnb-property-listings' and saves into to the images folder.
+</ins>__downloadDirectoryFroms3 function__</ins> 
 
-![Alt text](project_images/Figure_7_downloadDirectoryFroms3.PNG)
+&nbsp;
 
-*Figure 7 - downloadDirectoryFroms3 function
+The __downloadDirectoryFroms3__ function (Figure 7) takes the aws S3 bucket name and Remote directory name as an argument  and downloads the images from the 'airbnb-property-listings bucket and saves into to the images folder.
 
-_create_directory function_ 
+<kbd>![Alt text](project_images/Figure_7_downloadDirectoryFroms3.PNG)<kbd>
+
+*Figure 7 - downloadDirectoryFroms3 function*
+
+</ins>__create_directory function__</ins> 
 
 The __create_directory function__ (Figure 8) creates a new directory for the images that will be processed.The function returns the path of the directory.
 
 
-![Alt text](project_images/Figure_8_create_directory.PNG)
+<kbd>![Alt text](project_images/Figure_8_create_directory.PNG)<kbd>
 
-*Figure 8 - Create directory function
-
-_calculate_smallest_image_height function_
-
-The __calculate_smallest_image_height function__ takes in the path returned from the __create_directory function__ and for loop is coded which iterates through each image and calculates the images height and appends the height to the image_height list.The smallest image height is calculated using the __min__ function. The function returns the smallest image height.
-
-_delete_image_by_mode_
-
-The __delete_image_by_mode__ function (Figure 9) takes in the  image mode (set to RBG), the file path of the resized image and the image and codes a for loop which check if the image mode of the image is not set to RBG and deletes the image file path if this is the case.
-
-![Alt text](project_images/Figure_9_deletes_images_by_mode_func.PNG)
-
-*Figure 9 - deletes images by mode function
-
-_resize_images_
-
-The __resize_images function__ takes in the path returned from the __create_directory function__ and codes a for loop which iterates through the images and  calls the __calculate_smallest_image_height function__ to return the smallest image height (base_height) then calculates the image aspect ratio (width/height) and resizes the image height based a ratio of the smallest image height (base_height*aspect_ratio) and saves the image in a directory located in the processed_images folder. This function is called  within the __name__ == "__main__"  block
-
-![Alt text](project_images/Figure_10_resize_images_func.PNG)
-
-Figure 10 - resize images function
+*Figure 8 - Create directory function*
 
 &nbsp;
 
-_get data in the right format_
+</ins>__calculate_smallest_image_height function__</ins>
 
-For the first batch of modelling the features are the numerical tabular data and the label is the "price_night" feature. Within the tabular_data.py script the __load_airbnb function__ is coded which takes in the the new df created from the 'clean_tabular_data.csv' and assigns the features a new df which calls the select_dtypes(include='float64') hence the  features df contains the float numerical data. The labels df is then created using the new df and extracts the 'Price_Night' column. The features and labels are returned as a tuple.
+&nbsp;The function (Figure 9) takes in the path returned from the __create_directory__ function and for loop is coded which iterates through each image and calculates the images height and appends the height to the image_height list.The smallest image height is calculated using the __min__ function. The function returns the smallest image height.
+
+&nbsp;
+
+
+<kbd>![Alt text](project_images/Figure_9_calculate_smalest_image_height.PNG)<kbd>
+
+*Figure 9 - calculate_smallest_image_height function*
+
+&nbsp;
+
+</ins>_delete_image_by_mode_</ins>
+
+The function (Figure 9) takes in the  image mode (set to RBG), the file path of the resized image and the image and codes a for loop which check if the image mode of the image is not set to RBG and deletes the image file path if this is the case.
+
+<kbd>![Alt text](project_images/Figure_9_deletes_images_by_mode_func.PNG)<kbd>
+
+*Figure 9 - deletes images by mode function*
+
+&nbsp;
+
+</ins>__resize_images function__</ins>
+
+The function takes in the path returned from the __create_directory__ function and codes a for loop which iterates through the images and calls the __calculate_smallest_image_height__ function to return the smallest image height (base_height) then calculates the image aspect ratio (width/height) and resizes the image height based on the ratio of the smallest image height (base_height*aspect_ratio) and saves the image in a directory located in the processed_images folder. This function is called  within the __name__ == "__main__"  block.
+
+<kbd>![Alt text](project_images/Figure_10_resize_images_func.PNG)<kbd>
+
+*Figure 10 - resize images function*
+
+&nbsp;
+
+</ins>__get data in the right format__</ins>
+
+In order to process the data into model, the data must be split into features and labels. The features represent the input variables (x) and the label (y) represent the thing that is being predicted. As the models will contain features and a labels,the framework will consist entirely of   supervised learning algorithms.
+
+For the first batch of modelling, the features are the numerical tabular data and the label is the "price_night" feature. Within the tabular_data.py script the __load_airbnb__ function is coded which passes the new df created from the 'clean_tabular_data.csv' and assigns the features a new df which calls the __select_dtypes(include='float64')__ function . The labels df is then created using the new df and extracts the 'Price_Night' column. The features and labels are returned as a tuple.
+&nbsp;
+
+<kbd>![Alt text](project_images/Figure_11_load_airbnb_function.PNG)<kbd>
+
+*Figure 10 - load_airbnb function*
+
 &nbsp;
 
 ## Milestone 2 - Create a regresion model
