@@ -1,8 +1,7 @@
 ## Modelling Airbnb Property Listing Dataset Project
 &nbsp;
 
-The aim of this project is to develop a framework for a wide range of machine learning models that can be applied to various datasets. The main dataset used is the
-Airbnb property listing dataset.<br />
+The aim of this project is to develop a framework for a wide range of machine learning models that can be applied to various datasets.<br />
 
 &nbsp;
 
@@ -12,7 +11,7 @@ Airbnb property listing dataset.<br />
 
 __Tabular Data__ 
 
-The first step is to download and save images and tabular data folder. The tabular data folder contains the AirBnbData.csv. The tabular data has the following colums:
+The first step is to download and save the images and tabular data folder. The tabular data folder contains the AirBnbData.csv. The tabular data contains the following columns:
 
 * ID: Unique identifier for the listing
 * Category: The category of the listing
@@ -32,14 +31,16 @@ The first step is to download and save images and tabular data folder. The tabul
 * amenities_count: The number of amenities in the listing
 * url: The URL of the listing
 * bedrooms: The number of bedrooms in the listing
-* Unamed: 19: empty column
+* Unnamed: 19: empty column
   
-Pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool,built on top of the Python programming language. In order to
+<u>__Pandas__</u>
+
+&nbsp;Pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool,built on top of the Python programming language. In order to
 process the tabular data pandas was installed (pip install pandas). 
 
-The tabular_data.py script contains the functions coded in order to clean and process the tabular data. The  next step is to code __read_csv()__ function which reads in the tabular data csv and converts it to a pandas data frame(pd). The __copy()__ method is then called to create a copy of the df. This copy of the df can now be cleaned and manipulated. 
+The tabular_data.py script contains the functions coded in order to clean and process the tabular data. The  next step is to code __read_csv()__ function which reads in the tabular data csv and converts it to a pandas data frame(df). The __copy()__ function is then called to create a copy of the df. This copy of the original df can now be cleaned and manipulated. 
 
-_missing ratings_ 
+<u>__missing ratings__</u> 
 &nbsp;
 
 The __isna().sum()__ function is used to calculate the sum of NaN values in the pd data frame. Figure 1 belows shows that the rating columns contained missing values. 
