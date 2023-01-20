@@ -77,7 +77,7 @@ The __combine_description_strings__ function (Figure 4) passes the data frame wh
 
 &nbsp;
 
-![Alt text](project_images/Figure_4_combine_description_string_func.PNG)
+<kbd>![Alt text](project_images/Figure_4_combine_description_string_func.PNG)<kbd>
 
 *Figure 4 - Combine description string_function*
 
@@ -89,6 +89,7 @@ and calls the __fillna()__ function which replaces the missing values in the "gu
 &nbsp;
 
 <kbd>![Alt text](project_images/Figure_5_set_default_features_values_func.PNG)<kbd>
+
 *Figure 5 - Set default features values function*
 
 &nbsp;
