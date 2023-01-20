@@ -221,7 +221,7 @@ In order to tune the accuracy of the model, the hyperparameters need to be tuned
 In general ML models the features and labels dataset is split into Training,Test and validation sets, however __GridSearchCV libary__ function a resampling method (cv) that uses different portions of the data to test and train a model on different iterations.In SKlearn the model is trained using k-1 of the folds as training data and then then resulting model is validated on the remaining part of the model (Figure X).
 &nbsp;
 
-![Alt text](project_images/Figure_12_CV_diagram.PNG)
+<kbd>![Alt text](project_images/Figure_12_CV_diagram.PNG)<kbd>
 Figure X - Cross validation diagram
 
 &nbsp;
