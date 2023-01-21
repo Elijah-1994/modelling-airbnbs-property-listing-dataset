@@ -537,17 +537,11 @@ The model pipeline is then rerun (regression and neural network models). The __f
 
 <kbd>![Alt text](project_images/Figure_31_prediction_regression.PNG)<kbd>
 
-*Figure 29 -  Prediction from sklearn Gradient Boosting regression model*
+*Figure 30 -  Prediction from sklearn Gradient Boosting regression model*
 
 &nbsp;
 
-<kbd>![Alt text](project_images/Figure_31_Grandient_Boosting_Original_vs_Predicted_Graph.png)<kbd>
-
-*Figure 30 -  Gradient Boosting test and predicted graph*
-
-&nbsp;
-
-<kbd>![Alt text](project_images/Figure_X_Neural_Network_Prediction.PNG)<kbd>
+<kbd>![Alt text](project_images/Figure_30_prediction_regression.PNG)<kbd>
 
 *Figure 31 -  Gradient Boosting test and predicted graph*
 
