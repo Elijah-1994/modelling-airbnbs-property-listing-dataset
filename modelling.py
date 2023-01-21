@@ -1,4 +1,3 @@
-#%%
 from collections import OrderedDict
 from datetime import datetime 
 import matplotlib.pyplot as plt
@@ -482,8 +481,8 @@ def find_best_model(task_folder, module):
         parent_directory =  task_folder
         linear_regression_path = 'linear_regression/performance_metrics.json'
         linear_regression_path = os.path.join(parent_directory,linear_regression_path)
-        #logistic_regression_path = 'logistic_regression/performance_metrics.json'
-        #logistic_regression_path = os.path.join(parent_directory,logistic_regression_path)
+        logistic_regression_path = 'logistic_regression/performance_metrics.json'
+        logistic_regression_path = os.path.join(parent_directory,logistic_regression_path)
         decision_tree_path = 'decision_tree/performance_metrics.json'
         decision_tree_path = os.path.join(parent_directory,decision_tree_path)
         random_forest_path = 'random_forest/performance_metrics.json'
@@ -518,6 +517,7 @@ def find_best_model(task_folder, module):
                 performance_metric = json.load(f)
                 if performance_metric > best_model:
                     best_model = performance_metric
+                    print('best_model',best_model)
 
         best_model_path = 'random_forest/models.joblib' 
         best_model_path = os.path.join(parent_directory,best_model_path)
@@ -534,21 +534,21 @@ if __name__ == '__main__':
     df = pd.read_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv")
     X,y = load_airbnb(df)
     #regression model
-    # n_samples, n_features = 830, 9
-    # rng = np.random.RandomState(0)
-    # X = rng.randn(n_samples, n_features)
-    # y = rng.randn(n_samples)
-    # X_train, X_test,y_train, y_test= train_test_split(X, y, test_size=0.3)
-    # evaluate_all_models()
-    #best_model = find_best_model(task_folder='models/regression/', module='SKlearn')
-    # # classification model
-    # y = y.to_frame().reset_index(drop=True)
-    # label_encoder = LabelEncoder()
-    # y = label_encoder.fit_transform(y)
-    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    # evaluate_all_models()
-    # best_model = find_best_model(task_folder='models/classification/', module='SKlearn')
-    # #neural network regression model
+    n_samples, n_features = 830, 9
+    rng = np.random.RandomState(0)
+    X = rng.randn(n_samples, n_features)
+    y = rng.randn(n_samples)
+    X_train, X_test,y_train, y_test= train_test_split(X, y, test_size=0.3)
+    evaluate_all_models()
+    best_model = find_best_model(task_folder='models/regression/', module='sklearn')
+    #classification model
+    y = y.to_frame().reset_index(drop=True)
+    label_encoder = LabelEncoder()
+    y = label_encoder.fit_transform(y)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    evaluate_all_models()
+    best_model = find_best_model(task_folder='models/classification/', module='sklearn')
+    #neural network regression model
     dataset= AirbnbNightlyPriceDataset()
     train_dataset, test_dataset, validation_dataset = torch.utils.data.random_split(dataset,[500, 165,165]) 
     BATCH_SIZE = 5
@@ -572,6 +572,6 @@ if __name__ == '__main__':
     }
     configuration =  get_nn_config('nn_config.yaml')
     model = NeuralNetwork(config=configuration)
-    #find_best_nn()
+    find_best_nn()
     best_model = find_best_model (task_folder='models/neural_networks/regression/scenario_2/', module = 'Pytorch')
-    print(best_model)
+
