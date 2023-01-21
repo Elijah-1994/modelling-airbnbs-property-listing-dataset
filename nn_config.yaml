@@ -1,17 +1,17 @@
-# - Optimizer: 'ADADELTA'
-#   lr: 1.0
-#   rho: 0.9
-#   eps: 0.000001
-#   weight_decay: 0
-#   hidden_layer_width: 5
-#   depth: 5
-# - Optimizer: 'ADADELTA'
-#   lr: 0.5
-#   rho: 0.45
-#   eps: 0.000002
-#   weight_decay: 0.5
-#   hidden_layer_width: 5
-#   depth: 5
+- Optimizer: 'ADADELTA'
+  lr: 1.0
+  rho: 0.9
+  eps: 0.000001
+  weight_decay: 0
+  hidden_layer_width: 5
+  depth: 5
+- Optimizer: 'ADADELTA'
+  lr: 0.5
+  rho: 0.45
+  eps: 0.000002
+  weight_decay: 0.5
+  hidden_layer_width: 5
+  depth: 5
 - Optimizer: 'ADADELTA'
   lr: 1.5
   rho: 0.75
