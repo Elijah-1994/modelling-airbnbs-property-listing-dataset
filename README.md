@@ -7,6 +7,7 @@ The aim of this project is to develop a framework for a wide range of machine le
 
 
 ## Milestone 1 - Data Preparation
+
 &nbsp;
 
 __Tabular Data__ 
@@ -32,13 +33,17 @@ The first step is to download and save the images and tabular data folder. The t
 * url: The URL of the listing
 * bedrooms: The number of bedrooms in the listing
 * Unnamed: 19: empty column
-  
+
+&nbsp;
+
 <ins>__Pandas__</ins>
 
 &nbsp;Pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool,built on top of the Python programming language. In order to
 process the tabular data pandas was installed (pip install pandas). 
 
 The tabular_data.py script contains the functions coded in order to clean and process the tabular data. The  next step is to code __read_csv()__ function which reads in the tabular data csv and converts it to a pandas data frame(df). The __copy()__ function is then called to create a copy of the df. This copy of the original df can now be cleaned and manipulated. 
+
+&nbsp;
 
 &nbsp;<ins>__missing ratings__</ins> 
 &nbsp;
@@ -59,10 +64,13 @@ Missing values in the numerical data will cause issues when trying to train the 
 
 *Figure 2 - Remove rows with missing ratings function*
 
+&nbsp;
 
 <kbd>![Alt text](project_images/Figure_3_sum_of_NaN_values_in_DF.PNG)<kbd>
 
 *Figure 3 - Sum of NaN values in the df1*
+
+&nbsp;
 
 <ins>__Description strings__</ins>
 
@@ -80,6 +88,8 @@ The __combine_description_strings__ function (Figure 4) passes the data frame wh
 <kbd>![Alt text](project_images/Figure_4_combine_description_string_func.PNG)<kbd>
 
 *Figure 4 - Combine description string_function*
+
+&nbsp;
 
 <ins>__Feature values__</ins> 
 
@@ -119,6 +129,8 @@ The __downloadDirectoryFroms3__ function (Figure 7) takes the aws S3 bucket name
 <kbd>![Alt text](project_images/Figure_7_downloadDirectoryFroms3.PNG)<kbd>
 
 *Figure 7 - downloadDirectoryFroms3 function*
+
+&nbsp;
 
 <ins>__create_directory function__</ins> 
 
@@ -189,6 +201,8 @@ The modelling.py script contains the main code for training the various models. 
 
 SKlearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the Sklearn metrics. The __mean_square_error__ and __r2score__ functions and are then call to calculate the mean square error and the R2 score on the test data set (Figure 13). 
 
+&nbsp;
+
 
 <kbd>![Alt text](project_images/Figure_13_SGD_model.PNG)<kbd>
 
@@ -198,12 +212,10 @@ Figure 13 - SGD model code
 
 <ins>__Evaluation the regression model performance__<ins>
 
-&nbsp;
 
 
 <ins>_Tune the hyperparameters of the model using methods from SKLearn_<ins>
 
-&nbsp;
 
 In order to tune the accuracy of the model, the hyperparameters need to be tuned. This is done by implementing SKlearns __GridSearchCV libary__ function. The __GridSearchCV libary__ function helps loop through predefined hyperparameters and fits the model on the training set. The  __tune_regression_model_hyperparameters__ function(Figure 14) passes the model, X,y,X_test,y_test and a dictionary of the hyperparameters to be tuned and calls the __GridSearchCV libary function__ which loops through the dictionary of hyperparameters then the __fit__ function fits the model, then the __predict function__ makes a prediction on the test data set. The __mean_squared_error__ function calculates the mean squared error between the y_test and the predictions. The function returns the the best model, the best model hyperparameters and the performance metrics.
 
@@ -366,15 +378,17 @@ Pytorch provides a way to create data via the torch.utils.data module. it allows
   
 The __class AirbnbNightlyPriceDataset__ is a map style-data set which inherits from the torch.utils.data Dataset. The methods within the class are detailed below.
 
+&nbsp;
+
 <ins>__init method__<ins>
 
 The __init method__ calls the __super().__init__() method__ which delegates the function call to the parent class, which is nn.Module. This is needed to initialise the nn.Module properly. The __load_airbnb__ function is called which loads the features(numerical data) and label(price_night) then to __numpy method__ is called to convert the features and label into numpy arrays.
 
-__getitem method__
+<ins>__getitem method__<ins>
 
 The method loads and returns a sample from the dataset at the given index (idx).
 
-__len method__
+<ins>__len method__<ins>
 
 The method returns the number of samples in the dataset.
 
@@ -425,6 +439,7 @@ The __train__ function passes the model and the epoch for each iteration and a f
 
 *Figure 24 - Train function
 
+&nbsp;
 
 <ins>__loss function__<ins>
 
@@ -440,7 +455,10 @@ The loss function within the training loop is calculated between the prediction 
 
 Figure 25 -  train loss graph 
 
+&nbsp;
+
 <kbd>![Alt text](project_images/Figure_26_validation_loss_graph.PNG)<kbd>
+
 Figure 26 -  Validation loss graph 
 
 
@@ -464,6 +482,7 @@ Within the modelling.py script the __get_nn_config()__ function takes in the yam
 
 In order to set these parameters  into the model, the configuration file is passed into the model class upon initialisation. The order of the layers in the neural network should be the input layer then ReLU activation function then the hidden layer(ReLU set in between each hidden layer) then the output layer. In order to pass this configuration into the __nn.sequential__  method the __OrderedDict function__ is assigned to store these layers in the correct order and a for loop is coded to generate the hidden layers based on the width of the hidden layer and depth of the model(loaded from the config file) and the subsequent ReLU  layers . The ordered dict is then passed as an argument in the __nn.sequential__ method.
 
+&nbsp;
 
 <kbd>![Alt text](project_images/Figure_27_neural_network.PNG)<kbd>
 
@@ -533,6 +552,8 @@ The __load_dataset function__  is used to get a new Airbnb  dataset where the la
 &nbsp;
 
 The model pipeline is then rerun (regression and neural network models). The __find_best_model__ function is then used to load the performance metrics to find the best regression and neural network model for the new used case. The predictions and graphical representation of the best models are shown below.
+
+&nbsp;
 
 
 <kbd>![Alt text](project_images/Figure_30_prediction_regression.PNG)<kbd>
