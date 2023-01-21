@@ -255,9 +255,6 @@ class NeuralNetwork(nn.Module):
             self.ordered_dict['ReLU_'+ str(hidden_layer)] = torch.nn.ReLU()
         self.ordered_dict['linear_output_layer'] = self.linear_output_layer
         self.layers = torch.nn.Sequential(self.ordered_dict)
-        #print('ordered_dict',self.ordered_dict)
-        #print('depth',self.depth)
-        print('self.layer', self.layers)
     
     def forward(self,X):
         '''
