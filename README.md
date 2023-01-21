@@ -194,12 +194,12 @@ For the first batch of modelling, the features are the numerical tabular data an
 
 <ins>__simple regression model to predict the nightly cost of each listing__</ins> 
 
-The modelling.py script contains the main code for training the various models. The first step is create a simple regression model to predict the nightly cost  of each listing. the __load_airbnb__ function is imported from the tabular_data.py which contains the df for the  features (numerical data minus nightly cost) and label (nightly cost). This model is trained using the SKlearn __Stochastic Gradient Descent (SGD)Regressor class__. The __test split function__  is used to split the data into training and testing sets. The __randn__ function randomises the data in the features and label dataset.The training set is used to train the model and the test set is used to provide an unbiased evaluation of the final model fit on the training data set. SGD model is imported from Sklearn and the next step to create a variable which calls the __SGDRegresssor__ class. The __fit()__ function is  then called to fit the training data with SGD. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the nightly cost based on the fitted  training data set. The __np.random.seed__ function ensures that the ranpseudo-random numbers generated within NumPy __randint__ function can be stored, hence the model results can be repeated after each run. 
+The modelling.py script contains the main code for training the various models. The first step is create a simple regression model to predict the nightly cost  of each listing. the __load_airbnb__ function is imported from the tabular_data.py which contains the df for the  features (numerical data minus nightly cost) and label (nightly cost). This model is trained using the sklearn __Stochastic Gradient Descent (SGD)Regressor class__. The __test split function__  is used to split the data into training and testing sets. The __randn__ function randomises the data in the features and label dataset.The training set is used to train the model and the test set is used to provide an unbiased evaluation of the final model fit on the training data set. SGD model is imported from sklearn and the next step to create a variable which calls the __SGDRegresssor__ class. The __fit()__ function is  then called to fit the training data with SGD. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the nightly cost based on the fitted  training data set. The __np.random.seed__ function ensures that the ranpseudo-random numbers generated within NumPy __randint__ function can be stored, hence the model results can be repeated after each run. 
 
 
 <ins>__Evaluation the regression model performance__<ins>
 
-SKlearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the Sklearn metrics. The __mean_square_error__ and __r2score__ functions and are then call to calculate the mean square error and the R2 score on the test data set (Figure 13). 
+sklearn is then used to evaluate the key measures of performance regression. This is done by importing the mean sqaure error and R2 score functions from the sklearn metrics. The __mean_square_error__ and __r2score__ functions and are then call to calculate the mean square error and the R2 score on the test data set (Figure 13). 
 
 &nbsp;
 
@@ -214,10 +214,10 @@ Figure 13 - SGD model code
 
 
 
-<ins>_Tune the hyperparameters of the model using methods from SKLearn_<ins>
+<ins>_Tune the hyperparameters of the model using methods from sklearn_<ins>
 
 
-In order to tune the accuracy of the model, the hyperparameters need to be tuned. This is done by implementing SKlearns __GridSearchCV libary__ function. The __GridSearchCV libary__ function helps loop through predefined hyperparameters and fits the model on the training set. The  __tune_regression_model_hyperparameters__ function(Figure 14) passes the model, X,y,X_test,y_test and a dictionary of the hyperparameters to be tuned and calls the __GridSearchCV libary function__ which loops through the dictionary of hyperparameters then the __fit__ function fits the model, then the __predict function__ makes a prediction on the test data set. The __mean_squared_error__ function calculates the mean squared error between the y_test and the predictions. The function returns the the best model, the best model hyperparameters and the performance metrics.
+In order to tune the accuracy of the model, the hyperparameters need to be tuned. This is done by implementing sklearns __GridSearchCV libary__ function. The __GridSearchCV libary__ function helps loop through predefined hyperparameters and fits the model on the training set. The  __tune_regression_model_hyperparameters__ function(Figure 14) passes the model, X,y,X_test,y_test and a dictionary of the hyperparameters to be tuned and calls the __GridSearchCV libary function__ which loops through the dictionary of hyperparameters then the __fit__ function fits the model, then the __predict function__ makes a prediction on the test data set. The __mean_squared_error__ function calculates the mean squared error between the y_test and the predictions. The function returns the the best model, the best model hyperparameters and the performance metrics.
 
 &nbsp;
 <kbd>![Alt text](project_images/Figure_14_regression_tuning.PNG)<kbd>
@@ -228,7 +228,7 @@ In order to tune the accuracy of the model, the hyperparameters need to be tuned
 
 <ins>__Cross validation__<ins>
 
-In general ML models the features and labels dataset is split into Training,Test and validation sets, however __GridSearchCV libary__ function a resampling method (cv) that uses different portions of the data to test and train a model on different iterations.In SKlearn the model is trained using k-1 of the folds as training data and then then resulting model is validated on the remaining part of the model (Figure 15).
+In general ML models the features and labels dataset is split into Training,Test and validation sets, however __GridSearchCV libary__ function a resampling method (cv) that uses different portions of the data to test and train a model on different iterations.In sklearn the model is trained using k-1 of the folds as training data and then then resulting model is validated on the remaining part of the model (Figure 15).
 &nbsp;
 
 <kbd>![Alt text](project_images/Figure_15_CV_diagram.PNG)<kbd>
@@ -246,7 +246,7 @@ The remaining paramEters called in the __GridSearchCV libary__ class is the esti
 
 <ins>__hyperparameter selection__<ins>
 
-The first value/boolean statement/option to be tuned for each hyperparameter is chosen based on the defaults provided in the SKlearn manual. Then a range of values were tested by increasing/decreasing from the default value. In general each hyperparameter provided in the SKlearn manual was chosen to be tuned. After a few model runs some hyperparameters were removed to decrease the model run time.
+The first value/boolean statement/option to be tuned for each hyperparameter is chosen based on the defaults provided in the sklearn manual. Then a range of values were tested by increasing/decreasing from the default value. In general each hyperparameter provided in the sklearn manual was chosen to be tuned. After a few model runs some hyperparameters were removed to decrease the model run time.
 
 &nbsp;
 
@@ -264,7 +264,7 @@ The function(Figure 16) passes in the model,best_hyperparameters,performance_met
 
 <ins>__Beat the baseline regression model__<ins>
 
-In order to improve the baseline regression model, it was decided to apply different regression models provided by Sklearn. This includes decision trees, random forests, and gradient boosting. In order to run these additional models they are first imported from Sklearn. The __evaluate_all_models__ function (Figure 17) calls the __tune_regression_model_hyperparameters functions__ for each model scenario sequentially and the __save_model__ function is called to save the best model, hyperparameters and performance metrics.
+In order to improve the baseline regression model, it was decided to apply different regression models provided by Sklearn. This includes decision trees, random forests, and gradient boosting. In order to run these additional models they are first imported from sklearn. The __evaluate_all_models__ function (Figure 17) calls the __tune_regression_model_hyperparameters functions__ for each model scenario sequentially and the __save_model__ function is called to save the best model, hyperparameters and performance metrics.
 
 &nbsp;
 
@@ -302,9 +302,9 @@ In order run the simple classification model the __load_airbnb function__  is us
 &nbsp;
 
 in order to pass the data into the model, the label needs to be encoded to its numerical representation by using label Encoder. This is done by importing the __label Encoder function__
-from the Sklearn and calling an instance of the __label Encoder__ function then the __transform function__ to encode the label data. As with the regression model the next step is to split the data into test and train datasets. The parameter __random_state__ with the 
+from the sklearn and calling an instance of the __label Encoder__ function then the __transform function__ to encode the label data. As with the regression model the next step is to split the data into test and train datasets. The parameter __random_state__ with the 
 __train_test_split__ function ensures that the data is shuffled before training.
-The model is then trained using Sklearn __Logistic regression class__. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the category of the air bnb apartments based on  training data set(Figure 20). 
+The model is then trained using sklearn __Logistic regression class__. Now that the model is fitted,  the __prediction function__ is called to make a prediction of the category of the air bnb apartments based on  training data set(Figure 20). 
 
 &nbsp;
 
@@ -316,13 +316,13 @@ The model is then trained using Sklearn __Logistic regression class__. Now that 
 
 <ins>__Evaluation of the classification model performance__<ins>
 
-SKlearn is then used to evaluate the key measures of performance of the logistic regression model. This is done by importing the __precision, recall and f1_score functions__ from the Sklearn metrics. The __precision, recall and f1_score__ functions are then called to calculate the precision,recall and f1 score on the test data set (Figure 20). 
+sklearn is then used to evaluate the key measures of performance of the logistic regression model. This is done by importing the __precision, recall and f1_score functions__ from the sklearn metrics. The __precision, recall and f1_score__ functions are then called to calculate the precision,recall and f1 score on the test data set (Figure 20). 
 
 
 &nbsp;
 
 
-<ins>__Tune the hyperparameters of the model using methods from SKLearn__<ins>
+<ins>__Tune the hyperparameters of the model using methods from sklearn__<ins>
 
 Just like the regression models the hyperparameters for the logistic regression needs to be tuned. The steps follow the same process as mentioned within the Milestone  2 but instead the 
 code is wrapped in the __tune_classification_model_hyperparameters__ function(Figure 21).
@@ -344,7 +344,7 @@ the __save_model__ function is called and saves the logistic regression model  a
 
 <ins>__beat the baseline classification model__<ins>
 
-The performance of the baseline model can be improved by using different models provided by SKlearn. This is done by using the classification versions of the decision trees, random forest and gradient boosting model algorithms. The __evaluate_all_models__ function calls the __tune_classification_model_hyperparameters__ function for each model sequentially and returns the best model, hyperparameters and performance metrics and the __save_model__ function saves this data accordingly.
+The performance of the baseline model can be improved by using different models provided by sklearn. This is done by using the classification versions of the decision trees, random forest and gradient boosting model algorithms. The __evaluate_all_models__ function calls the __tune_classification_model_hyperparameters__ function for each model sequentially and returns the best model, hyperparameters and performance metrics and the __save_model__ function saves this data accordingly.
 
 &nbsp;
 
