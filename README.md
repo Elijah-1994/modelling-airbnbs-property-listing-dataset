@@ -10,7 +10,7 @@ The aim of this project is to develop a framework for a wide range of machine le
 
 &nbsp;
 
-__Tabular Data__ #
+__Tabular Data__ 
 
 The first step is to download and save the images and tabular data folder. The tabular data folder contains the AirBnbData.csv. The tabular data contains the following columns:
 
