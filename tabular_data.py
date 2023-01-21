@@ -1,4 +1,4 @@
-import pandas as pd#
+import pandas as pd
 
 def remove_rows_with_missing_ratings(df_copy):
     '''
