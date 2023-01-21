@@ -436,11 +436,12 @@ The loss function within the training loop is calculated between the prediction 
 
 &nbsp;The __writer.add_scalar__ function saves the loss data and outputs into graphical format in tensor board as shown in Figure 25 and Figure 26 below.
 
+<kbd>![Alt text](project_images/Figure_25_train_loss_graph.PNG)<kbd>
 
-Figure 25 -  Train graph metrics
+Figure 25 -  Train loss graph 
 
-
-Figure 26 -  validation graph metrics
+<kbd>![Alt text](project_images/Figure_26_validation_loss_graph.PNG)<kbd>
+Figure 26 -  Validation loss graph 
 
 
 &nbsp;

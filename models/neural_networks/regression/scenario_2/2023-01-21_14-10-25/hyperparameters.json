@@ -1,0 +1,1 @@
+{"Optimizer": "SGD", "lr": 0.001, "momentum": 0.9, "hidden_layer_width": 5, "depth": 5}
