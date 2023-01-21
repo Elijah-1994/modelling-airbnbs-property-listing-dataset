@@ -77,6 +77,5 @@ if __name__ == '__main__':
     df_copy = df_copy.replace(r'\r+|\\n+|\t+','', regex=True)
     new_df = clean_tabular_data()
     new_df.to_csv("airbnb-property-listings/tabular_data/clean_tabular_data.csv", index=False)
-    print(new_df['Category'].value_counts(dropna=False))
-    load_airbnb(new_df)
+ 
     
