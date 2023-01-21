@@ -581,4 +581,4 @@ if __name__ == '__main__':
     configuration =  get_nn_config('nn_config.yaml')
     model = NeuralNetwork(config=configuration)
     find_best_nn()
-    best_model = find_best_model (task_folder='models/neural_networks/regression/scenario_2/', module = 'Pytorch')
+    #best_model = find_best_model (task_folder='models/neural_networks/regression/scenario_2/', module = 'Pytorch')

@@ -29,44 +29,6 @@ class NeuralNetwork(nn.Module):
             nn.ReLU(),
             torch.nn.Linear(5,5),
             nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
-            torch.nn.Linear(5,5),
-            nn.ReLU(),
             torch.nn.Linear(5,1)
         )
         print('self.layers', self.layers)
@@ -118,7 +80,7 @@ def train(model, epochs=10):
             loss = F.mse_loss(prediction,labels)
             loss.backward()
             optimiser.step()
-            writer.add_scalar('loss',loss.item(),)
+            writer.add_scalar('loss_train',loss.item(),)
         for batch in dataloader["validation"]:
             features,labels = batch
             features = features.to(torch.float32)
