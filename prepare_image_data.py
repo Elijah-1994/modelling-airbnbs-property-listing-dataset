@@ -1,4 +1,4 @@
-from PIL import Image #
+from PIL import Image 
 from time import sleep
 import boto3 
 import os.path
