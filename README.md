@@ -535,13 +535,13 @@ The __load_dataset function__  is used to get a new Airbnb  dataset where the la
 The model pipeline is then rerun (regression and neural network models). The __find_best_model__ function is then used to load the performance metrics to find the best regression and neural network model for the new used case. The predictions and graphical representation of the best models are shown below.
 
 
-<kbd>![Alt text](project_images/Figure_31_prediction_regression.PNG)<kbd>
+<kbd>![Alt text](project_images/Figure_30_prediction_regression.PNG)<kbd>
 
 *Figure 30 -  Prediction from sklearn Gradient Boosting regression model*
 
 &nbsp;
 
-<kbd>![Alt text](project_images/Figure_30_prediction_regression.PNG)<kbd>
+<kbd>![Alt text](project_images/Figure_31_Grandient_Boosting_Original_vs_Predicted_Graph.png)<kbd>
 
 *Figure 31 -  Gradient Boosting test and predicted graph*
 
