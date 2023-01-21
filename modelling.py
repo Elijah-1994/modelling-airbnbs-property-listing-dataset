@@ -301,21 +301,19 @@ def train(model,config,epochs=10,):
     R2_Validation = []
     start_time = datetime.now()
     batch_idx = 0
+    
     if config['Optimizer'] == 'SGD':
-        print(config['Optimizer'])
         optimiser = torch.optim.SGD(model.parameters(), lr=config['lr'], momentum=config['momentum'])
+        
     elif config['Optimizer'] == 'ADADELTA':
-        print(config['Optimizer'])
         optimiser = torch.optim.Adadelta(model.parameters(),lr=config['lr'], rho=config['rho'], 
                                          eps=config['eps'], weight_decay=config['weight_decay'])
     elif config['Optimizer'] == 'ADAM':
-        print(config['Optimizer'])
         optimiser = torch.optim.Adam(model.parameters(), lr=config['lr'], eps=config['eps'], weight_decay=config['weight_decay'],
                                          amsgrad=config['amsgrad'], foreach=config['foreach'], maximize=config['maximize'], fused=config['fused']
 
                                          )
     elif config['Optimizer'] == 'ADAGRAD':
-        print(config['Optimizer'])
         optimiser = torch.optim.Adagrad(model.parameters(), lr=config['lr'], lr_decay=config['lr_decay'], eps=config['eps'], weight_decay=config['weight_decay'],
                                         foreach=config['foreach'], maximize=config['maximize'],
 
@@ -330,7 +328,6 @@ def train(model,config,epochs=10,):
             optimiser.zero_grad()
             current_time = time.process_time()
             prediction = model(features)
-            print('prediction',prediction)
             end_time = time.process_time()
             time_elapsed = (end_time - current_time) * 10**3
             average_time.append(time_elapsed)
@@ -358,7 +355,6 @@ def train(model,config,epochs=10,):
             r2score = r2score(prediction,labels) 
             R2_Validation.append(r2score.item())
             batch_idx+=1
-        print('epoch',epoch)
             
     model = model.state_dict()
     best_parameters  = config
@@ -421,37 +417,37 @@ def find_best_model(task_folder, module):
     '''   
     if module == 'Pytorch':
         parent_directory =  task_folder
-        model_1_ADELTA_path = '2023-01-17_10-30-07/performance_metrics.json' 
+        model_1_ADELTA_path = '2023-01-21_13-00-31/performance_metrics.json' 
         model_1_ADELTA_path = os.path.join(parent_directory,model_1_ADELTA_path)
-        model_2_ADELTA_path = '2023-01-17_10-37-20/performance_metrics.json' 
+        model_2_ADELTA_path = '2023-01-21_13-09-06/performance_metrics.json' 
         model_2_ADELTA_path = os.path.join(parent_directory,model_2_ADELTA_path)
-        model_3_ADELTA_path = '2023-01-17_10-44-31/performance_metrics.json' 
+        model_3_ADELTA_path = '2023-01-21_13-53-06/performance_metrics.json' 
         model_3_ADELTA_path = os.path.join(parent_directory,model_3_ADELTA_path)
-        model_4_ADELTA_path = '2023-01-17_10-51-41/performance_metrics.json' 
+        model_4_ADELTA_path = '2023-01-21_14-01-45/performance_metrics.json' 
         model_4_ADELTA_path = os.path.join(parent_directory,model_4_ADELTA_path)
-        model_5_SGD_path = '2023-01-17_10-58-51/performance_metrics.json' 
+        model_5_SGD_path = '2023-01-21_14-10-25/performance_metrics.json' 
         model_5_SGD_path = os.path.join(parent_directory,model_5_SGD_path)
-        model_6_SGD_path = '2023-01-17_11-06-07/performance_metrics.json' 
+        model_6_SGD_path = '2023-01-21_14-18-58/performance_metrics.json' 
         model_6_SGD_path = os.path.join(parent_directory,model_6_SGD_path)
-        model_7_SGD_path = '2023-01-17_11-13-22/performance_metrics.json' 
+        model_7_SGD_path = '2023-01-21_14-27-28/performance_metrics.json' 
         model_7_SGD_path = os.path.join(parent_directory,model_7_SGD_path)
-        model_8_SGD_path = '2023-01-17_11-20-34/performance_metrics.json' 
+        model_8_SGD_path = '2023-01-21_14-35-52/performance_metrics.json' 
         model_8_SGD_path = os.path.join(parent_directory,model_8_SGD_path)
-        model_9_ADAM_path = '2023-01-17_11-27-46/performance_metrics.json' 
+        model_9_ADAM_path = '2023-01-21_14-44-19/performance_metrics.json' 
         model_9_ADAM_path = os.path.join(parent_directory,model_9_ADAM_path)
-        model_10_ADAM_path = '2023-01-17_11-27-46/performance_metrics.json' 
+        model_10_ADAM_path = '2023-01-21_14-52-39/performance_metrics.json' 
         model_10_ADAM_path = os.path.join(parent_directory,model_10_ADAM_path)
-        model_11_ADAM_path = '2023-01-17_11-27-46/performance_metrics.json' 
+        model_11_ADAM_path = '2023-01-21_15-00-59/performance_metrics.json' 
         model_11_ADAM_path = os.path.join(parent_directory,model_11_ADAM_path)
-        model_12_ADAM_path = '2023-01-17_11-27-46/performance_metrics.json' 
+        model_12_ADAM_path = '22023-01-21_15-09-19/performance_metrics.json' 
         model_12_ADAM_path = os.path.join(parent_directory,model_12_ADAM_path)
-        model_13_ADAGRAD_path = '2023-01-17_11-58-53/performance_metrics.json' 
+        model_13_ADAGRAD_path = '2023-01-21_15-17-39/performance_metrics.json' 
         model_13_ADAGRAD_path = os.path.join(parent_directory,model_13_ADAGRAD_path)
-        model_14_ADAGRAD_path = '2023-01-17_12-06-04/performance_metrics.json' 
+        model_14_ADAGRAD_path = '2023-01-21_15-25-59/performance_metrics.json' 
         model_14_ADAGRAD_path = os.path.join(parent_directory,model_14_ADAGRAD_path)
-        model_15_ADAGRAD_path = '2023-01-17_12-13-46/performance_metrics.json' 
+        model_15_ADAGRAD_path = '2023-01-21_15-34-19/performance_metrics.json' 
         model_15_ADAGRAD_path = os.path.join(parent_directory,model_15_ADAGRAD_path)
-        model_16_ADAGRAD_path = '2023-01-17_12-21-43/performance_metrics.json' 
+        model_16_ADAGRAD_path = '2023-01-21_15-42-39/performance_metrics.json' 
         model_16_ADAGRAD_path = os.path.join(parent_directory,model_16_ADAGRAD_path)
         
         models_RMSE = []
@@ -470,20 +466,19 @@ def find_best_model(task_folder, module):
         for RMSE in models_RMSE:
             if RMSE < best_model or best_model == 0:
                 best_model = RMSE
-        print('model_8_SGD has the lowest RMSE.')
-        
-        best_model_path = '2023-01-17_11-20-34/model.pt' 
+
+        best_model_path = '2023-01-21_13-53-06/model.pt' 
         best_model_path = os.path.join(parent_directory,best_model_path) 
         best_model = torch.load(best_model_path)
-        best_model_hyperparameters = '2023-01-17_11-20-34/hyperparameters.json' 
+        best_model_hyperparameters = '2023-01-21_13-53-06/hyperparameters.json' 
         best_model_hyperparameters = os.path.join(parent_directory,best_model_hyperparameters)
-        with open(model_8_SGD_path, mode='r') as f:
+        with open(model_3_ADELTA_path, mode='r') as f:
             best_performance_metrics= json.load(f)
         with open(best_model_hyperparameters, mode='r') as f:
             best_model_hyperparameters= json.load(f)    
         return(best_model,best_performance_metrics,best_model_hyperparameters)
     
-    elif module == 'SKlearn':
+    elif module == 'sklearn':
         parent_directory =  task_folder
         linear_regression_path = 'linear_regression/performance_metrics.json'
         linear_regression_path = os.path.join(parent_directory,linear_regression_path)
@@ -577,5 +572,6 @@ if __name__ == '__main__':
     }
     configuration =  get_nn_config('nn_config.yaml')
     model = NeuralNetwork(config=configuration)
-    find_best_nn()
-    #best_model = find_best_model (task_folder='models/neural_networks/regression/scenario_2/', module = 'Pytorch')
+    #find_best_nn()
+    best_model = find_best_model (task_folder='models/neural_networks/regression/scenario_2/', module = 'Pytorch')
+    print(best_model)

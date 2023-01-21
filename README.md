@@ -438,7 +438,7 @@ The loss function within the training loop is calculated between the prediction 
 
 <kbd>![Alt text](project_images/Figure_25_train_loss_graph.PNG)<kbd>
 
-Figure 25 -  Train loss graph 
+Figure 25 -  train loss graph 
 
 <kbd>![Alt text](project_images/Figure_26_validation_loss_graph.PNG)<kbd>
 Figure 26 -  Validation loss graph 
@@ -532,35 +532,39 @@ The __find_best_nn__ function calls the __get_nn_config__ and a for loop is code
 The __load_dataset function__  is used to get a new Airbnb  dataset where the label is the integer number of bedrooms. The previous label(price_night) is added to the features.
 &nbsp;
 
-The model pipeline is then rerun (regression and neural network models). The __find_best_model__ function is then used to load the performance metrics to find the best regression and neural network model for the new used case.
-
-
+The model pipeline is then rerun (regression and neural network models). The __find_best_model__ function is then used to load the performance metrics to find the best regression and neural network model for the new used case. The predictions and graphical representation of the best models are shown below.
 
 
 <kbd>![Alt text](project_images/Figure_31_prediction_regression.PNG)<kbd>
 
-*Figure 29 -  Prediction from sklearn SGD regression model*
+*Figure 29 -  Prediction from sklearn Gradient Boosting regression model*
 
-
-in order to fully automate the docker image build and container run, it was first required to set up Github actions on the repository
-
-
-
-
-
-
-__Create repository__
 &nbsp;
 
+<kbd>![Alt text](project_images/Figure_31_Grandient_Boosting_Original_vs_Predicted_Graph.png)<kbd>
 
+*Figure 30 -  Gradient Boosting test and predicted graph*
 
-__Refactoring__
+&nbsp;
 
-The first step was to review and refractor the code written in milestone 2. This included;
+<kbd>![Alt text](project_images/Figure_X_Neural_Network_Prediction.PNG)<kbd>
 
-* Renaming methods and variables so that they are clear and concise to any who reads the script.
-* Ensuring that the appropriate methods were made private.
-* Re-ordering the sequence of the imports required for the code to run in alphabetical order.
-* Adding docstrings to methods.
+*Figure 31 -  Gradient Boosting test and predicted graph*
 
- These improvements makes the code look clearer and more user friendly.
+&nbsp;
+
+<kbd>![Alt text](project_images/Figure_32_Neural_Network_Prediction.PNG)<kbd>
+
+*Figure 32 -  Prediction from ADELTA optimiser(model 3) neural network model.*
+
+&nbsp;
+
+<kbd>![Alt text](project_images/Figure_33_train_loss_graph.PNG)<kbd>
+
+*Figure 33 -  ADELTA optimiser(model 3) Train loss graph*
+
+&nbsp;
+
+<kbd>![Alt text](project_images/Figure_34_validation_loss_graph.PNG)<kbd>
+
+*Figure 34 -  ADELTA optimiser(model 3) Validation loss graph*

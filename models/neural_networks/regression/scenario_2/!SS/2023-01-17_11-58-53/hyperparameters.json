@@ -1,1 +1,0 @@
-{"Optimizer": "ADAGRAD", "lr": 0.01, "lr_decay": 0, "eps": 1e-10, "weight_decay": 0, "foreach": false, "maximize": false, "hidden_layer_width": 5, "depth": 20}
