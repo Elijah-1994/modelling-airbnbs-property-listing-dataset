@@ -1,7 +1,7 @@
+#%%
 from collections import OrderedDict
 from datetime import datetime 
 import matplotlib.pyplot as plt
-import scikitplot as skplt
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.ensemble import RandomForestClassifier
@@ -19,6 +19,7 @@ from tabular_data import load_airbnb
 from torch import nn
 from torchmetrics import R2Score
 from torch.utils.data import Dataset
+from torch.utils.tensorboard import SummaryWriter
 import joblib
 import json
 import numpy as np
@@ -42,50 +43,50 @@ def evaluate_all_models():
 
     '''   
     
-    model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(SGDRegressor(),X,y,X_test,y_test,{
-        'learning_rate':['constant', 'optimal', 'invscaling', 'adaptive'],
-        'penalty':['l2', 'l1', 'elasticnet', 'None'],
-        'alpha':[0.0001, 0.0002, 0.0003],
-        'l1_ratio':[0.15, 0.1, 0.25], 
-        'max_iter':[1000, 1250, 1500, 1750, 2000], 
-        'tol':[0.001, 0.02, 0.003],
-        'epsilon':[0.1, 0.2, 0.3, 0.5, 0.9],
-        'eta0':[0.01, 0.02, 0.03, 0.05, 0.09],
-        'power_t':[0.25, 0.35, 0.45],
+    # model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(SGDRegressor(),X,y,X_test,y_test,{
+    #     'learning_rate':['constant', 'optimal', 'invscaling', 'adaptive'],
+    #     'penalty':['l2', 'l1', 'elasticnet', 'None'],
+    #     'alpha':[0.0001, 0.0002, 0.0003],
+    #     'l1_ratio':[0.15, 0.1, 0.25], 
+    #     'max_iter':[1000, 1250, 1500, 1750, 2000], 
+    #     'tol':[0.001, 0.02, 0.003],
+    #     'epsilon':[0.1, 0.2, 0.3, 0.5, 0.9],
+    #     'eta0':[0.01, 0.02, 0.03, 0.05, 0.09],
+    #     'power_t':[0.25, 0.35, 0.45],
+    #                                 })
+    # save_model(model,best_parameters,performance_metrics,folder='models/regression/linear_regression/', module='SKlearn')
+    
+    model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(DecisionTreeRegressor(),X,y,X_test,y_test,{
+        "criterion":['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+        "splitter":["best", "random"],
+        "max_depth" : [1, 3, 5, 7, 9, 11, 12],
+        "min_samples_leaf":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "min_samples_split": [0, 1, 2, 3],
+        "min_weight_fraction_leaf":[0.1, 0.2, 0.3, 0.4],
+        "max_features":[1.0, "log2", "sqrt", None],
+        "max_leaf_nodes":[None, 10, 20, 30, 40, 50, 60, 70, 80, 90],
                                     })
-    save_model(model,best_parameters,performance_metrics,folder='models/regression/linear_regression/', module='SKlearn')
+    save_model(model,best_parameters,performance_metrics,folder='models/regression/decision_tree/', module='sklearn')
     
-    # model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(DecisionTreeRegressor(),X,y,X_test,y_test,{
-    #     "criterion":['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
-    #     "splitter":["best", "random"],
-    #     "max_depth" : [1, 3, 5, 7, 9, 11, 12],
-    #     "min_samples_leaf":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    #     "min_samples_split": [0, 1, 2, 3],
-    #     "min_weight_fraction_leaf":[0.1, 0.2, 0.3, 0.4],
-    #     "max_features":[1.0, "log2", "sqrt", None],
-    #     "max_leaf_nodes":[None, 10, 20, 30, 40, 50, 60, 70, 80, 90],
-    #                                 })
-    # save_model(model,best_parameters,performance_metrics,folder='models/regression/decision_tree/', module='SKlearn')
+    model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(RandomForestRegressor(),X,y,X_test,y_test,{
+        "min_samples_split": [0, 1, 2, 3],
+        "n_estimators" : [5, 20, 50, 100],
+        "max_features":[1.0, "log2", "sqrt", None],
+        "max_leaf_nodes":[None, 10, 20, 30, 40, 50, 60, 70, 80, 90], 
+        "max_depth" : [1, 3, 5, 7, 9, 11, 12],
+        "min_weight_fraction_leaf":[0.1, 0.2, 0.3, 0.4],
+        "bootstrap" : [True, False],
+                                    })
+    save_model(model,best_parameters,performance_metrics,folder='models/regression/random_forest/', module='sklearn')
     
-    # model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(RandomForestRegressor(),X,y,X_test,y_test,{
-    #     "min_samples_split": [0, 1, 2, 3],
-    #     "n_estimators" : [5, 20, 50, 100],
-    #     "max_features":[1.0, "log2", "sqrt", None],
-    #     "max_leaf_nodes":[None, 10, 20, 30, 40, 50, 60, 70, 80, 90], 
-    #     "max_depth" : [1, 3, 5, 7, 9, 11, 12],
-    #     "min_weight_fraction_leaf":[0.1, 0.2, 0.3, 0.4],
-    #     "bootstrap" : [True, False],
-    #                                 })
-    # save_model(model,best_parameters,performance_metrics,folder='models/regression/random_forest/', module='SKlearn')
-    
-    # model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(GradientBoostingRegressor(),X,y,X_test,y_test,{
-    #      "max_depth" : [1, 3, 5, 7, 9, 11, 12],
-    #      "min_samples_leaf":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    #      "min_weight_fraction_leaf":[0.1, 0.2, 0.3, 0.4],
-    #      "max_features":[1.0, "log2", "sqrt", None],
-    #      "max_leaf_nodes":[None, 10, 20, 30, 40, 50, 60, 70, 80, 90] 
-    #                                 })
-    # save_model(model,best_parameters,performance_metrics,folder='models/regression/gradient_boosting/', module='SKlearn')
+    model,best_parameters,performance_metrics = tune_regression_model_hyperparameters(GradientBoostingRegressor(),X,y,X_test,y_test,{
+         "max_depth" : [1, 3, 5, 7, 9, 11, 12],
+         "min_samples_leaf":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+         "min_weight_fraction_leaf":[0.1, 0.2, 0.3, 0.4],
+         "max_features":[1.0, "log2", "sqrt", None],
+         "max_leaf_nodes":[None, 10, 20, 30, 40, 50, 60, 70, 80, 90] 
+                                    })
+    save_model(model,best_parameters,performance_metrics,folder='models/regression/gradient_boosting/', module='sklearn')
     
     # model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(LogisticRegression(),X,y,X_test,y_test,{
     #        'penalty':['l2', 'none'],
@@ -105,7 +106,7 @@ def evaluate_all_models():
     #         "max_leaf_nodes":[None, 10, 20, 30, 40, 50, 60, 70, 80, 90], 
     #         "ccp_alpha":[0, 1, 2, 3, 4]
     #                                 })
-    # save_model(model,best_parameters,performance_metrics,folder='models/classification/decision_tree/', module='SKlearn')
+    # save_model(model,best_parameters,performance_metrics,folder='models/classification/decision_tree/', module='sklearn')
     
     # model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(RandomForestClassifier(),X,y,X_test,y_test,{
     #         "max_depth" : [1, 3, 5, 7, 9, 11, 12],
@@ -115,7 +116,7 @@ def evaluate_all_models():
     #         "max_leaf_nodes":[None, 10, 20, 30, 40, 50, 60, 70, 80, 90], 
     #         "ccp_alpha":[0, 1, 2, 3, 4]
     #                                 })
-    # save_model(model,best_parameters,performance_metrics,folder='models/classification/random_forest/')
+    # save_model(model,best_parameters,performance_metrics,folder='models/classification/random_forest/', module='sklearn')
     
     # model,best_parameters,performance_metrics = tune_classification_model_hyperparameters(GradientBoostingClassifier(),X,y,X_test,y_test,{
     #         "learning_rate" : [0.1, 1.0, 3.0, 6.0, 9.0, 12.0],
@@ -125,7 +126,7 @@ def evaluate_all_models():
     #         "max_depth" : [1, 3, 5, 7, 9, 11, 12],         
     #         "tol":[0.0001, 0.0002, 0.0003]
     #                                 })
-    # save_model(model,best_parameters,performance_metrics,folder='models/classification/gradient_boosting/')
+    # save_model(model,best_parameters,performance_metrics,folder='models/classification/gradient_boosting/', module='sklearn')
     
 def tune_regression_model_hyperparameters(model,X,y,X_test,y_test,*parameters) -> tuple:
     '''
@@ -155,7 +156,6 @@ def tune_regression_model_hyperparameters(model,X,y,X_test,y_test,*parameters) -
     plt.legend(loc='best',fancybox=True, shadow=True)
     plt.grid(True)
     plt.show()
-    
     return (clf,clf.best_params_,performance_metrics)
     
 def tune_classification_model_hyperparameters(model,X,y,X_test,y_test,*parameters) -> tuple:
@@ -334,10 +334,11 @@ def train(model,config,epochs=10,):
             end_time = time.process_time()
             time_elapsed = (end_time - current_time) * 10**3
             average_time.append(time_elapsed)
-            mse = F.mse_loss(prediction,labels)
-            RMSE_Loss_Train = torch.sqrt(mse)
-            mse.backward()
+            mse_train = F.mse_loss(prediction,labels)
+            RMSE_Loss_Train = torch.sqrt(mse_train)
+            mse_train.backward()
             optimiser.step()
+            writer.add_scalar('train_loss',loss.item(),)
             RMSE_Train.append(RMSE_Loss_Train.item())
             r2score = R2Score()
             r2score = r2score(prediction,labels) 
@@ -397,7 +398,7 @@ def save_model(model,best_parameters,performance_metrics,folder,module):
         with open(performance_metrics_path, mode="w", encoding= "utf-8") as file:
             file.write(json.dumps((performance_metrics), default=str))  
     
-    elif module == 'SKlearn':
+    elif module == 'sklearn':
         parent_directory = folder
         model_path = 'models.joblib'
         model_path = os.path.join(parent_directory,model_path)
@@ -503,7 +504,6 @@ def find_best_model(task_folder, module):
                 best_model = performance_metric
                 print('best_model',best_model)
 
-        print(f'{regression_performance_metrics_list[3][18:35]}' " " 'model has the lowest RMSE.')  
         best_model_path = 'gradient_boosting/models.joblib' 
         best_model_path = os.path.join(parent_directory,best_model_path)
         best_model = joblib.load(best_model_path, mmap_mode=None) 
@@ -523,7 +523,6 @@ def find_best_model(task_folder, module):
                 if performance_metric > best_model:
                     best_model = performance_metric
 
-        print(f'{classification_performance_metrics_list[2][22:35]}' " " 'model has the highest precision.')  
         best_model_path = 'random_forest/models.joblib' 
         best_model_path = os.path.join(parent_directory,best_model_path)
         best_model = joblib.load(best_model_path, mmap_mode=None)
@@ -545,7 +544,7 @@ if __name__ == '__main__':
     y = rng.randn(n_samples)
     X_train, X_test,y_train, y_test= train_test_split(X, y, test_size=0.3)
     evaluate_all_models()
-    best_model = find_best_model(task_folder='models/regression/', module='SKlearn')
+    #best_model = find_best_model(task_folder='models/regression/', module='SKlearn')
     # # classification model
     # y = y.to_frame().reset_index(drop=True)
     # label_encoder = LabelEncoder()
